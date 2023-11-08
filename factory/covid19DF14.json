@@ -1,0 +1,9 @@
+{
+	"name": "covid19DF14",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7d2865b0-307d-424e-a042-4282a6f1ab6b",
+		"tenantId": "d57d32cc-c121-488f-b07b-dfe705680c71"
+	}
+}

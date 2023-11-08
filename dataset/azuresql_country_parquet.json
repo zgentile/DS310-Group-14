@@ -1,0 +1,20 @@
+{
+	"name": "azuresql_country_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSQL_blob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "azuresql"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
