@@ -1,8 +1,8 @@
 {
-	"name": "policy_parquet",
+	"name": "merged",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Cosmos_blob",
+			"referenceName": "Merged_Data",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,11 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "cosmosdb"
+				"container": "challenge2"
 			},
 			"compressionCodec": "snappy"
 		},
 		"schema": []
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
