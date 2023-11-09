@@ -1,0 +1,19 @@
+{
+	"name": "unioned_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Merged_Data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "unionedtable"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
