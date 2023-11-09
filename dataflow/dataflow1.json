@@ -1,0 +1,147 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "CosmosDbNoSqlContainer1",
+						"type": "DatasetReference"
+					},
+					"name": "Policy"
+				},
+				{
+					"dataset": {
+						"referenceName": "Parquet1",
+						"type": "DatasetReference"
+					},
+					"name": "Metrics1"
+				},
+				{
+					"dataset": {
+						"referenceName": "Parquet2",
+						"type": "DatasetReference"
+					},
+					"name": "Metrics2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "merged",
+						"type": "DatasetReference"
+					},
+					"name": "Merged"
+				}
+			],
+			"transformations": [
+				{
+					"name": "union1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CountryName as string,",
+				"          CountryCode as string,",
+				"          RegionName as string,",
+				"          RegionCode as string,",
+				"          Jurisdiction as string,",
+				"          Date as string,",
+				"          {C1_School closing} as integer,",
+				"          C1_Flag as integer,",
+				"          {C2_Workplace closing} as integer,",
+				"          C2_Flag as integer,",
+				"          {C3_Cancel public events} as integer,",
+				"          C3_Flag as integer,",
+				"          {C4_Restrictions on gatherings} as integer,",
+				"          C4_Flag as integer,",
+				"          {C5_Close public transport} as integer,",
+				"          C5_Flag as integer,",
+				"          {C6_Stay at home requirements} as integer,",
+				"          C6_Flag as integer,",
+				"          {C7_Restrictions on internal movement} as integer,",
+				"          C7_Flag as integer,",
+				"          {C8_International travel controls} as integer,",
+				"          {E1_Income support} as integer,",
+				"          E1_Flag as integer,",
+				"          {E2_Debt contract relief} as integer,",
+				"          {E3_Fiscal measures} as integer,",
+				"          {E4_International support} as integer,",
+				"          {H1_Public information campaigns} as integer,",
+				"          H1_Flag as integer,",
+				"          {H2_Testing policy} as integer,",
+				"          {H3_Contact tracing} as integer,",
+				"          {H4_Emergency investment in healthcare} as integer,",
+				"          {H5_Investment in vaccines} as integer,",
+				"          {H6_Facial Coverings} as integer,",
+				"          H6_Flag as integer,",
+				"          {H7_Vaccination policy} as integer,",
+				"          H7_Flag as integer,",
+				"          {H8_Protection of elderly people} as integer,",
+				"          H8_Flag as integer,",
+				"          M1_Wildcard as integer,",
+				"          StringencyIndex as integer,",
+				"          StringencyIndexForDisplay as integer,",
+				"          StringencyLegacyIndex as integer,",
+				"          StringencyLegacyIndexForDisplay as integer,",
+				"          GovernmentResponseIndex as integer,",
+				"          GovernmentResponseIndexForDisplay as integer,",
+				"          ContainmentHealthIndex as integer,",
+				"          ContainmentHealthIndexForDisplay as integer,",
+				"          EconomicSupportIndex as integer,",
+				"          EconomicSupportIndexForDisplay as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'document') ~> Policy",
+				"source(output(",
+				"          ID as integer,",
+				"          Updated as date,",
+				"          Confirmed as integer,",
+				"          Confirmed_Change as integer,",
+				"          Deaths as integer,",
+				"          Deaths_Change as integer,",
+				"          Recovered as integer,",
+				"          Recovered_Change as integer,",
+				"          Latitude as decimal(10,5),",
+				"          Longitude as decimal(10,5),",
+				"          ISO2 as string,",
+				"          ISO3 as string,",
+				"          Country_Region as string,",
+				"          load_time as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Metrics1",
+				"source(output(",
+				"          ID as integer,",
+				"          Updated as date,",
+				"          Confirmed as integer,",
+				"          Confirmed_Change as integer,",
+				"          Deaths as integer,",
+				"          Deaths_Change as integer,",
+				"          Recovered as integer,",
+				"          Recovered_Change as integer,",
+				"          Latitude as decimal(10,5),",
+				"          Longitude as decimal(10,5),",
+				"          ISO2 as string,",
+				"          ISO3 as string,",
+				"          Country_Region as string,",
+				"          load_time as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Metrics2",
+				"Policy, Metrics1, Metrics2 union(byName: true)~> union1",
+				"union1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Merged"
+			]
+		}
+	}
+}
