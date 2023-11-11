@@ -50,7 +50,7 @@
 				"     format: 'parquet',",
 				"     partitionBy('hash', 1)) ~> metrics",
 				"metrics select(mapColumn(",
-				"          Updated,",
+				"          Date = Updated,",
 				"          Recovered,",
 				"          Recovered_Change,",
 				"          ISO3,",
