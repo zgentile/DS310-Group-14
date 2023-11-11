@@ -938,6 +938,52 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/select_recoveries')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "recoveries",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "recoveries_select",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"metrics": {},
+									"selectedRecoveries": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/recoveries_select')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sql_server_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2762,6 +2808,51 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/recoveries_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "selected-columns"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Date",
+						"type": "INT96"
+					},
+					{
+						"name": "Confirmed",
+						"type": "INT32"
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country_Region",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/selected_policy_data')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -3536,6 +3627,93 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/policy_lake')]",
 				"[concat(variables('factoryId'), '/datasets/selected_policy_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/recoveries_select')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "metrics_lake",
+								"type": "DatasetReference"
+							},
+							"name": "metrics",
+							"description": "Import data from metrics"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "recoveries_data",
+								"type": "DatasetReference"
+							},
+							"name": "selectedRecoveries"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Recoveries"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          Deaths as integer,",
+						"          Deaths_Change as integer,",
+						"          Recovered as integer,",
+						"          Recovered_Change as integer,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5),",
+						"          ISO2 as string,",
+						"          ISO3 as string,",
+						"          Country_Region as string,",
+						"          load_time as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: true,",
+						"     format: 'parquet',",
+						"     partitionBy('hash', 1)) ~> metrics",
+						"metrics select(mapColumn(",
+						"          Updated,",
+						"          Recovered,",
+						"          Recovered_Change,",
+						"          ISO3,",
+						"          Country_Region",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> Recoveries",
+						"Recoveries sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          Date as timestamp,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          ISO3 as string,",
+						"          Country_Region as string",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['recoveries_data.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> selectedRecoveries"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/recoveries_data')]"
 			]
 		}
 	]
