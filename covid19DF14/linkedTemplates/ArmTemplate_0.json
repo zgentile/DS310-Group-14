@@ -418,7 +418,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "unionedtable"
+						"fileName": "dbo.Covid19_Metrics.parquet",
+						"fileSystem": "azuresql"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -734,7 +735,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "unionedtable"
+						"fileName": "dbo.Covid19_Metrics.parquet",
+						"fileSystem": "sqlserver"
 					},
 					"compressionCodec": "snappy"
 				},
