@@ -92,9 +92,6 @@
 					"covid_cosmosdb_connectionString": {
 						"value": "[parameters('covid_cosmosdb_connectionString')]"
 					},
-					"Covid19_blob_1_connectionString": {
-						"value": "[parameters('Covid19_blob_1_connectionString')]"
-					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					}
@@ -115,6 +112,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"Covid19_blob_1_connectionString": {
+						"value": "[parameters('Covid19_blob_1_connectionString')]"
 					},
 					"SqlServer2_connectionString": {
 						"value": "[parameters('SqlServer2_connectionString')]"
