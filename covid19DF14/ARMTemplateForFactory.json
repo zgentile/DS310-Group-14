@@ -800,7 +800,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/select_metrics')]",
+			"name": "[concat(parameters('factoryName'), '/select_cases')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -819,7 +819,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "metrics_select",
+								"referenceName": "cases_select",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
@@ -842,7 +842,53 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/metrics_select')]"
+				"[concat(variables('factoryId'), '/dataflows/cases_select')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/select_deaths')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "deaths",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "deaths_select",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"metrics": {},
+									"selectedDeaths": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/deaths_select')]"
 			]
 		},
 		{
@@ -2113,6 +2159,51 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/deaths_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "selected-columns"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Date",
+						"type": "INT96"
+					},
+					{
+						"name": "Confirmed",
+						"type": "INT32"
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country_Region",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/metrics_data_lake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -2924,102 +3015,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/geography_union')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "sqlCountriesLake",
-								"type": "DatasetReference"
-							},
-							"name": "sqlCountries"
-						},
-						{
-							"dataset": {
-								"referenceName": "azsqlCountriesLake",
-								"type": "DatasetReference"
-							},
-							"name": "azsqlCountries"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "MergedCountries",
-								"type": "DatasetReference"
-							},
-							"name": "MergedCountriesSink"
-						}
-					],
-					"transformations": [
-						{
-							"name": "CountriesUnion"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          Country as string,",
-						"          CountryCode as string,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5)",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> sqlCountries",
-						"source(output(",
-						"          Country as string,",
-						"          CountryCode as string,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5)",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> azsqlCountries",
-						"sqlCountries, azsqlCountries union(byName: true,",
-						"     partitionBy('hash', 1))~> CountriesUnion",
-						"CountriesUnion sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     format: 'parquet',",
-						"     partitionFileNames:['MergedCountries.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> MergedCountriesSink"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/sqlCountriesLake')]",
-				"[concat(variables('factoryId'), '/datasets/azsqlCountriesLake')]",
-				"[concat(variables('factoryId'), '/datasets/MergedCountries')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_select')]",
+			"name": "[concat(parameters('factoryName'), '/cases_select')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -3124,6 +3120,188 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/metrics_lake')]",
 				"[concat(variables('factoryId'), '/datasets/cases_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/deaths_select')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "metrics_lake",
+								"type": "DatasetReference"
+							},
+							"name": "metrics",
+							"description": "Import data from metrics"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "deaths_data",
+								"type": "DatasetReference"
+							},
+							"name": "selectedDeaths"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Deaths"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          Deaths as integer,",
+						"          Deaths_Change as integer,",
+						"          Recovered as integer,",
+						"          Recovered_Change as integer,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5),",
+						"          ISO2 as string,",
+						"          ISO3 as string,",
+						"          Country_Region as string,",
+						"          load_time as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: true,",
+						"     format: 'parquet',",
+						"     partitionBy('hash', 1)) ~> metrics",
+						"metrics select(mapColumn(",
+						"          Date = Updated,",
+						"          Deaths,",
+						"          Deaths_Change,",
+						"          ISO3,",
+						"          Country_Region",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> Deaths",
+						"Deaths sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          Date as timestamp,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          ISO3 as string,",
+						"          Country_Region as string",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['deaths_data.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> selectedDeaths"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/deaths_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/geography_union')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "sqlCountriesLake",
+								"type": "DatasetReference"
+							},
+							"name": "sqlCountries"
+						},
+						{
+							"dataset": {
+								"referenceName": "azsqlCountriesLake",
+								"type": "DatasetReference"
+							},
+							"name": "azsqlCountries"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "MergedCountries",
+								"type": "DatasetReference"
+							},
+							"name": "MergedCountriesSink"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CountriesUnion"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Country as string,",
+						"          CountryCode as string,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: true,",
+						"     format: 'parquet') ~> sqlCountries",
+						"source(output(",
+						"          Country as string,",
+						"          CountryCode as string,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: true,",
+						"     format: 'parquet') ~> azsqlCountries",
+						"sqlCountries, azsqlCountries union(byName: true,",
+						"     partitionBy('hash', 1))~> CountriesUnion",
+						"CountriesUnion sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          Deaths as integer,",
+						"          Deaths_Change as integer,",
+						"          Recovered as integer,",
+						"          Recovered_Change as integer,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5),",
+						"          ISO2 as string,",
+						"          ISO3 as string,",
+						"          Country_Region as string,",
+						"          load_time as timestamp",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['MergedCountries.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> MergedCountriesSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/sqlCountriesLake')]",
+				"[concat(variables('factoryId'), '/datasets/azsqlCountriesLake')]",
+				"[concat(variables('factoryId'), '/datasets/MergedCountries')]"
 			]
 		},
 		{
