@@ -74,15 +74,19 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: true,",
 				"     format: 'parquet') ~> azsqlMetrics",
-				"sqlMetrics, azsqlMetrics union(byName: true)~> union1",
+				"sqlMetrics, azsqlMetrics union(byName: true,",
+				"     partitionBy('hash', 1))~> union1",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
+				"     partitionFileNames:['MergedMetrics'],",
+				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
