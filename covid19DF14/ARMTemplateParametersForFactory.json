@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covid19DF14"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSQL_blob_connectionString": {
+			"value": ""
+		},
+		"Cosmos_blob_connectionString": {
+			"value": ""
+		},
+		"Covid19_blob_1_connectionString": {
+			"value": ""
+		},
+		"Merged_Data_connectionString": {
+			"value": ""
+		},
+		"SqlServer2_connectionString": {
+			"value": ""
+		},
+		"SqlServer3_connectionString": {
+			"value": ""
+		},
+		"azure_sql_covid_connectionString": {
+			"value": ""
+		},
+		"covid_cosmosdb_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://covid197o5otukgvty3w.dfs.core.windows.net/"
+		}
+	}
+}
