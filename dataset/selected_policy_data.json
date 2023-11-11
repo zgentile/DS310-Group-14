@@ -1,0 +1,19 @@
+{
+	"name": "selected_policy_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "selected-columns"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

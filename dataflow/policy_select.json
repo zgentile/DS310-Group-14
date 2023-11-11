@@ -1,0 +1,129 @@
+{
+	"name": "policy_select",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "policy_lake",
+						"type": "DatasetReference"
+					},
+					"name": "policy"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "selected_policy_data",
+						"type": "DatasetReference"
+					},
+					"name": "selectedPolicies"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectPolicies"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CountryName as string,",
+				"          CountryCode as string,",
+				"          RegionName as string,",
+				"          RegionCode as string,",
+				"          Jurisdiction as string,",
+				"          Date as timestamp,",
+				"          C1_School_closing as long,",
+				"          C1_Flag as long,",
+				"          C2_Workplace_closing as long,",
+				"          C2_Flag as long,",
+				"          C3_Cancel_public_events as long,",
+				"          C3_Flag as long,",
+				"          C4_Restrictions_on_gatherings as long,",
+				"          C4_Flag as long,",
+				"          C5_Close_public_transport as long,",
+				"          C5_Flag as long,",
+				"          C6_Stay_at_home_requirements as long,",
+				"          C6_Flag as long,",
+				"          C7_Restrictions_on_internal_movement as long,",
+				"          C7_Flag as long,",
+				"          C8_International_travel_controls as long,",
+				"          E1_Income_support as long,",
+				"          E1_Flag as long,",
+				"          E2_Debt_contract_relief as long,",
+				"          E3_Fiscal_measures as long,",
+				"          E4_International_support as long,",
+				"          H1_Public_information_campaigns as long,",
+				"          H1_Flag as long,",
+				"          H2_Testing_policy as long,",
+				"          H3_Contact_tracing as long,",
+				"          H4_Emergency_investment_in_healthcare as long,",
+				"          H5_Investment_in_vaccines as long,",
+				"          H6_Facial_Coverings as long,",
+				"          H6_Flag as long,",
+				"          H7_Vaccination_policy as long,",
+				"          H7_Flag as long,",
+				"          H8_Protection_of_elderly_people as long,",
+				"          H8_Flag as long,",
+				"          M1_Wildcard as long,",
+				"          StringencyIndex as long,",
+				"          StringencyIndexForDisplay as long,",
+				"          StringencyLegacyIndex as long,",
+				"          StringencyLegacyIndexForDisplay as long,",
+				"          GovernmentResponseIndex as long,",
+				"          GovernmentResponseIndexForDisplay as long,",
+				"          ContainmentHealthIndex as long,",
+				"          ContainmentHealthIndexForDisplay as long,",
+				"          EconomicSupportIndex as long,",
+				"          EconomicSupportIndexForDisplay as long,",
+				"          id as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: true,",
+				"     format: 'parquet') ~> policy",
+				"policy select(mapColumn(",
+				"          CountryName,",
+				"          Date,",
+				"          C1_School_closing,",
+				"          C2_Workplace_closing,",
+				"          C3_Cancel_public_events,",
+				"          C4_Restrictions_on_gatherings,",
+				"          C5_Close_public_transport,",
+				"          C6_Stay_at_home_requirements,",
+				"          C7_Restrictions_on_internal_movement,",
+				"          C8_International_travel_controls,",
+				"          E1_Income_support,",
+				"          E2_Debt_contract_relief,",
+				"          E3_Fiscal_measures,",
+				"          E4_International_support,",
+				"          H1_Public_information_campaigns,",
+				"          H2_Testing_policy,",
+				"          H3_Contact_tracing,",
+				"          H4_Emergency_investment_in_healthcare,",
+				"          H5_Investment_in_vaccines,",
+				"          H6_Facial_Coverings,",
+				"          H7_Vaccination_policy,",
+				"          H8_Protection_of_elderly_people,",
+				"          StringencyIndex,",
+				"          GovernmentResponseIndex,",
+				"          ContainmentHealthIndex,",
+				"          EconomicSupportIndex",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectPolicies",
+				"selectPolicies sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     partitionFileNames:['selectedpolicy.parquet'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> selectedPolicies"
+			]
+		}
+	}
+}
