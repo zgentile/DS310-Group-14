@@ -800,6 +800,52 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/select_policies')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "select_policies",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "policy_select",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"policy": {},
+									"selectedPolicies": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/policy_select')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sql_server_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2114,6 +2160,232 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/policy_lake')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "policy_parquet",
+						"fileSystem": "cosmosdb"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "CountryName",
+						"type": "UTF8"
+					},
+					{
+						"name": "CountryCode",
+						"type": "UTF8"
+					},
+					{
+						"name": "RegionName",
+						"type": "UTF8"
+					},
+					{
+						"name": "RegionCode",
+						"type": "UTF8"
+					},
+					{
+						"name": "Jurisdiction",
+						"type": "UTF8"
+					},
+					{
+						"name": "Date",
+						"type": "INT96"
+					},
+					{
+						"name": "C1_School_closing",
+						"type": "INT64"
+					},
+					{
+						"name": "C1_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C2_Workplace_closing",
+						"type": "INT64"
+					},
+					{
+						"name": "C2_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C3_Cancel_public_events",
+						"type": "INT64"
+					},
+					{
+						"name": "C3_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C4_Restrictions_on_gatherings",
+						"type": "INT64"
+					},
+					{
+						"name": "C4_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C5_Close_public_transport",
+						"type": "INT64"
+					},
+					{
+						"name": "C5_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C6_Stay_at_home_requirements",
+						"type": "INT64"
+					},
+					{
+						"name": "C6_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C7_Restrictions_on_internal_movement",
+						"type": "INT64"
+					},
+					{
+						"name": "C7_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "C8_International_travel_controls",
+						"type": "INT64"
+					},
+					{
+						"name": "E1_Income_support",
+						"type": "INT64"
+					},
+					{
+						"name": "E1_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "E2_Debt_contract_relief",
+						"type": "INT64"
+					},
+					{
+						"name": "E3_Fiscal_measures",
+						"type": "INT64"
+					},
+					{
+						"name": "E4_International_support",
+						"type": "INT64"
+					},
+					{
+						"name": "H1_Public_information_campaigns",
+						"type": "INT64"
+					},
+					{
+						"name": "H1_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "H2_Testing_policy",
+						"type": "INT64"
+					},
+					{
+						"name": "H3_Contact_tracing",
+						"type": "INT64"
+					},
+					{
+						"name": "H4_Emergency_investment_in_healthcare",
+						"type": "INT64"
+					},
+					{
+						"name": "H5_Investment_in_vaccines",
+						"type": "INT64"
+					},
+					{
+						"name": "H6_Facial_Coverings",
+						"type": "INT64"
+					},
+					{
+						"name": "H6_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "H7_Vaccination_policy",
+						"type": "INT64"
+					},
+					{
+						"name": "H7_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "H8_Protection_of_elderly_people",
+						"type": "INT64"
+					},
+					{
+						"name": "H8_Flag",
+						"type": "INT64"
+					},
+					{
+						"name": "M1_Wildcard",
+						"type": "INT64"
+					},
+					{
+						"name": "StringencyIndex",
+						"type": "INT64"
+					},
+					{
+						"name": "StringencyIndexForDisplay",
+						"type": "INT64"
+					},
+					{
+						"name": "StringencyLegacyIndex",
+						"type": "INT64"
+					},
+					{
+						"name": "StringencyLegacyIndexForDisplay",
+						"type": "INT64"
+					},
+					{
+						"name": "GovernmentResponseIndex",
+						"type": "INT64"
+					},
+					{
+						"name": "GovernmentResponseIndexForDisplay",
+						"type": "INT64"
+					},
+					{
+						"name": "ContainmentHealthIndex",
+						"type": "INT64"
+					},
+					{
+						"name": "ContainmentHealthIndexForDisplay",
+						"type": "INT64"
+					},
+					{
+						"name": "EconomicSupportIndex",
+						"type": "INT64"
+					},
+					{
+						"name": "EconomicSupportIndexForDisplay",
+						"type": "INT64"
+					},
+					{
+						"name": "id",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/policy_parquet')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -2135,6 +2407,30 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Cosmos_blob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/selected_policy_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "selected-columns"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -2558,6 +2854,141 @@
 				"[concat(variables('factoryId'), '/datasets/metrics_data_lake')]",
 				"[concat(variables('factoryId'), '/datasets/azsql_metrics_data_lake')]",
 				"[concat(variables('factoryId'), '/datasets/unioned_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/policy_select')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "policy_lake",
+								"type": "DatasetReference"
+							},
+							"name": "policy"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "selected_policy_data",
+								"type": "DatasetReference"
+							},
+							"name": "selectedPolicies"
+						}
+					],
+					"transformations": [
+						{
+							"name": "selectPolicies"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          CountryName as string,",
+						"          CountryCode as string,",
+						"          RegionName as string,",
+						"          RegionCode as string,",
+						"          Jurisdiction as string,",
+						"          Date as timestamp,",
+						"          C1_School_closing as long,",
+						"          C1_Flag as long,",
+						"          C2_Workplace_closing as long,",
+						"          C2_Flag as long,",
+						"          C3_Cancel_public_events as long,",
+						"          C3_Flag as long,",
+						"          C4_Restrictions_on_gatherings as long,",
+						"          C4_Flag as long,",
+						"          C5_Close_public_transport as long,",
+						"          C5_Flag as long,",
+						"          C6_Stay_at_home_requirements as long,",
+						"          C6_Flag as long,",
+						"          C7_Restrictions_on_internal_movement as long,",
+						"          C7_Flag as long,",
+						"          C8_International_travel_controls as long,",
+						"          E1_Income_support as long,",
+						"          E1_Flag as long,",
+						"          E2_Debt_contract_relief as long,",
+						"          E3_Fiscal_measures as long,",
+						"          E4_International_support as long,",
+						"          H1_Public_information_campaigns as long,",
+						"          H1_Flag as long,",
+						"          H2_Testing_policy as long,",
+						"          H3_Contact_tracing as long,",
+						"          H4_Emergency_investment_in_healthcare as long,",
+						"          H5_Investment_in_vaccines as long,",
+						"          H6_Facial_Coverings as long,",
+						"          H6_Flag as long,",
+						"          H7_Vaccination_policy as long,",
+						"          H7_Flag as long,",
+						"          H8_Protection_of_elderly_people as long,",
+						"          H8_Flag as long,",
+						"          M1_Wildcard as long,",
+						"          StringencyIndex as long,",
+						"          StringencyIndexForDisplay as long,",
+						"          StringencyLegacyIndex as long,",
+						"          StringencyLegacyIndexForDisplay as long,",
+						"          GovernmentResponseIndex as long,",
+						"          GovernmentResponseIndexForDisplay as long,",
+						"          ContainmentHealthIndex as long,",
+						"          ContainmentHealthIndexForDisplay as long,",
+						"          EconomicSupportIndex as long,",
+						"          EconomicSupportIndexForDisplay as long,",
+						"          id as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: true,",
+						"     format: 'parquet') ~> policy",
+						"policy select(mapColumn(",
+						"          CountryName,",
+						"          Date,",
+						"          C1_School_closing,",
+						"          C2_Workplace_closing,",
+						"          C3_Cancel_public_events,",
+						"          C4_Restrictions_on_gatherings,",
+						"          C5_Close_public_transport,",
+						"          C6_Stay_at_home_requirements,",
+						"          C7_Restrictions_on_internal_movement,",
+						"          C8_International_travel_controls,",
+						"          E1_Income_support,",
+						"          E2_Debt_contract_relief,",
+						"          E3_Fiscal_measures,",
+						"          E4_International_support,",
+						"          H1_Public_information_campaigns,",
+						"          H2_Testing_policy,",
+						"          H3_Contact_tracing,",
+						"          H4_Emergency_investment_in_healthcare,",
+						"          H5_Investment_in_vaccines,",
+						"          H6_Facial_Coverings,",
+						"          H7_Vaccination_policy,",
+						"          H8_Protection_of_elderly_people,",
+						"          StringencyIndex,",
+						"          GovernmentResponseIndex,",
+						"          ContainmentHealthIndex,",
+						"          EconomicSupportIndex",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> selectPolicies",
+						"selectPolicies sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['selectedpolicy.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> selectedPolicies"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/policy_lake')]",
+				"[concat(variables('factoryId'), '/datasets/selected_policy_data')]"
 			]
 		}
 	]
