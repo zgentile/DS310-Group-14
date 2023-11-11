@@ -1,9 +1,9 @@
 {
-	"name": "select_cases",
+	"name": "select_deaths",
 	"properties": {
 		"activities": [
 			{
-				"name": "metrics",
+				"name": "deaths",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "cases_select",
+						"referenceName": "deaths_select",
 						"type": "DataFlowReference"
 					},
 					"compute": {

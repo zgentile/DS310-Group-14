@@ -1,5 +1,5 @@
 {
-	"name": "cases_select",
+	"name": "deaths_select",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -16,15 +16,15 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "cases_data",
+						"referenceName": "deaths_data",
 						"type": "DatasetReference"
 					},
-					"name": "selectedCases"
+					"name": "selectedDeaths"
 				}
 			],
 			"transformations": [
 				{
-					"name": "Cases"
+					"name": "Deaths"
 				}
 			],
 			"scriptLines": [
@@ -51,51 +51,30 @@
 				"     partitionBy('hash', 1)) ~> metrics",
 				"metrics select(mapColumn(",
 				"          Date = Updated,",
-				"          Confirmed,",
-				"          Confirmed_Change,",
+				"          Deaths,",
+				"          Deaths_Change,",
 				"          ISO3,",
 				"          Country_Region",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> Cases",
-				"Cases sink(allowSchemaDrift: true,",
+				"     skipDuplicateMapOutputs: true) ~> Deaths",
+				"Deaths sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          CountryName as string,",
 				"          Date as timestamp,",
-				"          C1_School_closing as long,",
-				"          C2_Workplace_closing as long,",
-				"          C3_Cancel_public_events as long,",
-				"          C4_Restrictions_on_gatherings as long,",
-				"          C5_Close_public_transport as long,",
-				"          C6_Stay_at_home_requirements as long,",
-				"          C7_Restrictions_on_internal_movement as long,",
-				"          C8_International_travel_controls as long,",
-				"          E1_Income_support as long,",
-				"          E2_Debt_contract_relief as long,",
-				"          E3_Fiscal_measures as long,",
-				"          E4_International_support as long,",
-				"          H1_Public_information_campaigns as long,",
-				"          H2_Testing_policy as long,",
-				"          H3_Contact_tracing as long,",
-				"          H4_Emergency_investment_in_healthcare as long,",
-				"          H5_Investment_in_vaccines as long,",
-				"          H6_Facial_Coverings as long,",
-				"          H7_Vaccination_policy as long,",
-				"          H8_Protection_of_elderly_people as long,",
-				"          StringencyIndex as long,",
-				"          GovernmentResponseIndex as long,",
-				"          ContainmentHealthIndex as long,",
-				"          EconomicSupportIndex as long",
+				"          Confirmed as integer,",
+				"          Confirmed_Change as integer,",
+				"          ISO3 as string,",
+				"          Country_Region as string",
 				"     ),",
 				"     format: 'parquet',",
-				"     partitionFileNames:['cases_data.parquet'],",
+				"     partitionFileNames:['deaths_data.parquet'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> selectedCases"
+				"     partitionBy('hash', 1)) ~> selectedDeaths"
 			]
 		}
 	}
