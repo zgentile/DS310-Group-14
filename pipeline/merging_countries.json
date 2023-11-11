@@ -1,9 +1,9 @@
 {
-	"name": "merging_metrics",
+	"name": "merging_countries",
 	"properties": {
 		"activities": [
 			{
-				"name": "Merge Metrics",
+				"name": "Merge Countries",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "metrics_union",
+						"referenceName": "geography_union",
 						"type": "DataFlowReference"
 					},
 					"compute": {
