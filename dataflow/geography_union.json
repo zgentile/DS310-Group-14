@@ -1,60 +1,64 @@
 {
-	"name": "metrics_union",
+	"name": "geography_union",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "metrics_data_lake",
+						"referenceName": "sqlCountriesLake",
 						"type": "DatasetReference"
 					},
-					"name": "sqlMetrics"
+					"name": "sqlCountries"
 				},
 				{
 					"dataset": {
-						"referenceName": "azsql_metrics_data_lake",
+						"referenceName": "azsqlCountriesLake",
 						"type": "DatasetReference"
 					},
-					"name": "azsqlMetrics"
+					"name": "azsqlCountries"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "unioned_data",
+						"referenceName": "MergedCountries",
 						"type": "DatasetReference"
 					},
-					"name": "MergedMetricsSink"
+					"name": "MergedCountriesSink"
 				}
 			],
 			"transformations": [
 				{
-					"name": "MetricsUnion"
+					"name": "CountriesUnion"
 				}
 			],
 			"scriptLines": [
 				"source(output(",
-				"          ID as integer,",
-				"          Updated as date,",
-				"          Confirmed as integer,",
-				"          Confirmed_Change as integer,",
-				"          Deaths as integer,",
-				"          Deaths_Change as integer,",
-				"          Recovered as integer,",
-				"          Recovered_Change as integer,",
+				"          Country as string,",
+				"          CountryCode as string,",
 				"          Latitude as decimal(10,5),",
-				"          Longitude as decimal(10,5),",
-				"          ISO2 as string,",
-				"          ISO3 as string,",
-				"          Country_Region as string,",
-				"          load_time as timestamp",
+				"          Longitude as decimal(10,5)",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: true,",
-				"     format: 'parquet') ~> sqlMetrics",
+				"     format: 'parquet') ~> sqlCountries",
 				"source(output(",
+				"          Country as string,",
+				"          CountryCode as string,",
+				"          Latitude as decimal(10,5),",
+				"          Longitude as decimal(10,5)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: true,",
+				"     format: 'parquet') ~> azsqlCountries",
+				"sqlCountries, azsqlCountries union(byName: true,",
+				"     partitionBy('hash', 1))~> CountriesUnion",
+				"CountriesUnion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
 				"          ID as integer,",
 				"          Updated as date,",
 				"          Confirmed as integer,",
@@ -70,22 +74,14 @@
 				"          Country_Region as string,",
 				"          load_time as timestamp",
 				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: true,",
-				"     format: 'parquet') ~> azsqlMetrics",
-				"sqlMetrics, azsqlMetrics union(byName: true,",
-				"     partitionBy('hash', 1))~> MetricsUnion",
-				"MetricsUnion sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     partitionFileNames:['MergedMetrics.parquet'],",
+				"     partitionFileNames:['MergedCountries.parquet'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> MergedMetricsSink"
+				"     partitionBy('hash', 1)) ~> MergedCountriesSink"
 			]
 		}
 	}
