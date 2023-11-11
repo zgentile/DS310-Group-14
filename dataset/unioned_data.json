@@ -2,15 +2,15 @@
 	"name": "unioned_data",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Merged_Data",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"container": "unionedtable"
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "unionedtable"
 			},
 			"compressionCodec": "snappy"
 		},

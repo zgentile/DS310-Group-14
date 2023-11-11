@@ -2,16 +2,16 @@
 	"name": "azuresql_metrics_parquet",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureSQL_blob",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
+				"type": "AzureBlobFSLocation",
 				"fileName": "dbo.Covid19_Metrics.parquet",
-				"container": "azuresql"
+				"fileSystem": "azuresql"
 			},
 			"compressionCodec": "snappy"
 		},

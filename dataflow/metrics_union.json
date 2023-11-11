@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "metrics_union",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -10,15 +10,47 @@
 						"type": "DatasetReference"
 					},
 					"name": "sqlMetrics"
+				},
+				{
+					"dataset": {
+						"referenceName": "azuresql_metrics_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "azsqlMetrics"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "unioned_data",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "union1"
+				}
+			],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> sqlMetrics"
+				"     format: 'parquet') ~> sqlMetrics",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> azsqlMetrics",
+				"sqlMetrics, azsqlMetrics union(byName: true)~> union1",
+				"union1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
