@@ -381,11 +381,13 @@
 						"          Country_Region as string",
 						"     ),",
 						"     format: 'parquet',",
+						"     partitionFileNames:['dates_data.parquet'],",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> data"
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> data"
 					]
 				}
 			},
