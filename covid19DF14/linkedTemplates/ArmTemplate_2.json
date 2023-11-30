@@ -341,6 +341,75 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/countries_transfer')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "MergedCountries",
+								"type": "DatasetReference"
+							},
+							"name": "countries"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "countries",
+								"type": "DatasetReference"
+							},
+							"name": "CopyCountries"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          Deaths as integer,",
+						"          Deaths_Change as integer,",
+						"          Recovered as integer,",
+						"          Recovered_Change as integer,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5),",
+						"          ISO2 as string,",
+						"          ISO3 as string,",
+						"          Country_Region as string,",
+						"          load_time as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: true,",
+						"     format: 'parquet') ~> countries",
+						"countries sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          Date as timestamp,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          ISO3 as string,",
+						"          Country_Region as string",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['countries_data.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> CopyCountries"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/dates_transfer')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -529,6 +598,14 @@
 								"type": "DatasetReference"
 							},
 							"name": "MergedCountriesSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "MergedCountries",
+								"type": "DatasetReference"
+							},
+							"name": "final",
+							"description": "Add sink dataset to selected columns folder"
 						}
 					],
 					"transformations": [
@@ -584,7 +661,33 @@
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> MergedCountriesSink"
+						"     partitionBy('hash', 1)) ~> MergedCountriesSink",
+						"CountriesUnion sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          Deaths as integer,",
+						"          Deaths_Change as integer,",
+						"          Recovered as integer,",
+						"          Recovered_Change as integer,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5),",
+						"          ISO2 as string,",
+						"          ISO3 as string,",
+						"          Country_Region as string,",
+						"          load_time as timestamp",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['countries_data.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> final"
 					]
 				}
 			},
@@ -973,7 +1076,8 @@
 								"datasetParameters": {
 									"sqlCountries": {},
 									"azsqlCountries": {},
-									"MergedCountriesSink": {}
+									"MergedCountriesSink": {},
+									"final": {}
 								}
 							},
 							"staging": {},
@@ -1085,6 +1189,52 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/cases_select')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/select_countries')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Countries",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "countries_transfer",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"countries": {},
+									"CopyCountries": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/countries_transfer')]"
 			]
 		},
 		{
