@@ -263,8 +263,21 @@
 								}
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"validateDataConsistency": false,
+							"enableSkipIncompatibleRow": false,
+							"validateDataConsistency": true,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Warning",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureDataLakeStorage1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							},
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
@@ -702,7 +715,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/policy_covid_data')]",
-				"[concat(variables('factoryId'), '/datasets/policy_parquet')]"
+				"[concat(variables('factoryId'), '/datasets/policy_parquet')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -3040,6 +3054,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "policy_v2_parquet",
 						"container": "cosmosdb"
 					},
 					"compressionCodec": "snappy"

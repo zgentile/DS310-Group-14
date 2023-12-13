@@ -661,6 +661,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "policy_v2_parquet",
 						"container": "cosmosdb"
 					},
 					"compressionCodec": "snappy"
@@ -1055,8 +1056,21 @@
 								}
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"validateDataConsistency": false,
+							"enableSkipIncompatibleRow": false,
+							"validateDataConsistency": true,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Warning",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureDataLakeStorage1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							},
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
