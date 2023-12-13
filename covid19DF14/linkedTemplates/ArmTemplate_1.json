@@ -1424,7 +1424,8 @@
 											"path": "$['StringencyLegacyIndexForDisplay']"
 										},
 										"sink": {
-											"name": "StringencyLegacyIndexForDisplay"
+											"name": "StringencyLegacyIndexForDisplay",
+											"type": "Double"
 										}
 									},
 									{
