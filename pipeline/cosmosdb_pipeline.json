@@ -370,7 +370,8 @@
 									"path": "$['StringencyIndex']"
 								},
 								"sink": {
-									"name": "StringencyIndex"
+									"name": "StringencyIndex",
+									"type": "Double"
 								}
 							},
 							{
@@ -378,7 +379,8 @@
 									"path": "$['StringencyIndexForDisplay']"
 								},
 								"sink": {
-									"name": "StringencyIndexForDisplay"
+									"name": "StringencyIndexForDisplay",
+									"type": "Double"
 								}
 							},
 							{
@@ -386,7 +388,8 @@
 									"path": "$['StringencyLegacyIndex']"
 								},
 								"sink": {
-									"name": "StringencyLegacyIndex"
+									"name": "StringencyLegacyIndex",
+									"type": "Double"
 								}
 							},
 							{
