@@ -406,7 +406,8 @@
 									"path": "$['GovernmentResponseIndex']"
 								},
 								"sink": {
-									"name": "GovernmentResponseIndex"
+									"name": "GovernmentResponseIndex",
+									"type": "Double"
 								}
 							},
 							{
@@ -414,7 +415,8 @@
 									"path": "$['GovernmentResponseIndexForDisplay']"
 								},
 								"sink": {
-									"name": "GovernmentResponseIndexForDisplay"
+									"name": "GovernmentResponseIndexForDisplay",
+									"type": "Double"
 								}
 							},
 							{
@@ -422,7 +424,8 @@
 									"path": "$['ContainmentHealthIndex']"
 								},
 								"sink": {
-									"name": "ContainmentHealthIndex"
+									"name": "ContainmentHealthIndex",
+									"type": "Double"
 								}
 							},
 							{
@@ -430,7 +433,8 @@
 									"path": "$['ContainmentHealthIndexForDisplay']"
 								},
 								"sink": {
-									"name": "ContainmentHealthIndexForDisplay"
+									"name": "ContainmentHealthIndexForDisplay",
+									"type": "Double"
 								}
 							},
 							{
@@ -438,7 +442,8 @@
 									"path": "$['EconomicSupportIndex']"
 								},
 								"sink": {
-									"name": "EconomicSupportIndex"
+									"name": "EconomicSupportIndex",
+									"type": "Double"
 								}
 							},
 							{
@@ -446,7 +451,8 @@
 									"path": "$['EconomicSupportIndexForDisplay']"
 								},
 								"sink": {
-									"name": "EconomicSupportIndexForDisplay"
+									"name": "EconomicSupportIndexForDisplay",
+									"type": "Double"
 								}
 							},
 							{
