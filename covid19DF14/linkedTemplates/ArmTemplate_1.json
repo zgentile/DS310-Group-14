@@ -661,7 +661,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "policy_v2_parquet",
+						"fileName": "policy_parquet",
 						"container": "cosmosdb"
 					},
 					"compressionCodec": "snappy"
