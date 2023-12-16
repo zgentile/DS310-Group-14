@@ -70,8 +70,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Total Population",
-									"type": "String",
+									"name": "Total_Population",
 									"physicalType": "UTF8"
 								}
 							},
@@ -82,8 +81,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Urban Population",
-									"type": "String",
+									"name": "Urban_Population",
 									"physicalType": "UTF8"
 								}
 							},
@@ -94,8 +92,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Rural Population",
-									"type": "String",
+									"name": "Rural_Population",
 									"physicalType": "UTF8"
 								}
 							},
@@ -106,8 +103,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Population Density",
-									"type": "String",
+									"name": "Population_Density",
 									"physicalType": "UTF8"
 								}
 							},
@@ -118,8 +114,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Life Expectancy",
-									"type": "String",
+									"name": "Life_Expectancy",
 									"physicalType": "UTF8"
 								}
 							},
@@ -130,8 +125,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Birth Rate",
-									"type": "String",
+									"name": "Birth_Rate",
 									"physicalType": "UTF8"
 								}
 							},
@@ -142,8 +136,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Death Rate",
-									"type": "String",
+									"name": "Death_Rate",
 									"physicalType": "UTF8"
 								}
 							},
@@ -154,8 +147,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Fertility Rate",
-									"type": "String",
+									"name": "Fertility_Rate",
 									"physicalType": "UTF8"
 								}
 							},
@@ -166,8 +158,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Infant Mortality Rate",
-									"type": "String",
+									"name": "Infant_Mortality_Rate",
 									"physicalType": "UTF8"
 								}
 							},
@@ -178,8 +169,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Growth Rate",
-									"type": "String",
+									"name": "Growth_Rate",
 									"physicalType": "UTF8"
 								}
 							}
@@ -248,8 +238,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "Country Name",
-									"type": "String",
+									"name": "Country_Name",
 									"physicalType": "UTF8"
 								}
 							},
