@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "gdp_stats.parquet",
 				"fileSystem": "selected-columns"
 			},
 			"compressionCodec": "snappy"
