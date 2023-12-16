@@ -35,6 +35,9 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://covid197o5otukgvty3w.dfs.core.windows.net/"
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://www.kaggle.com/datasets/bhanupratapbiswas/gdp-per-capita-current-us/download?datasetVersionNumber=1"
+		},
 		"containerUri": {
 			"value": ""
 		},
