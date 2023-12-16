@@ -17,23 +17,23 @@
 		},
 		"schema": [
 			{
-				"name": "Date",
-				"type": "INT96"
-			},
-			{
-				"name": "Confirmed",
-				"type": "INT32"
-			},
-			{
-				"name": "Confirmed_Change",
-				"type": "INT32"
-			},
-			{
-				"name": "ISO3",
+				"name": "Country_Name",
 				"type": "UTF8"
 			},
 			{
-				"name": "Country_Region",
+				"name": "Code",
+				"type": "UTF8"
+			},
+			{
+				"name": "GDP",
+				"type": "UTF8"
+			},
+			{
+				"name": "GDP_per_capita",
+				"type": "UTF8"
+			},
+			{
+				"name": "GDP_per_capita_growth",
 				"type": "UTF8"
 			}
 		]

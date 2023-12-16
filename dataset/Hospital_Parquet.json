@@ -15,6 +15,27 @@
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "location",
+				"type": "UTF8"
+			},
+			{
+				"name": "iso_code",
+				"type": "UTF8"
+			},
+			{
+				"name": "hospital_beds_per_thousand",
+				"type": "UTF8"
+			},
+			{
+				"name": "life_expectancy",
+				"type": "UTF8"
+			},
+			{
+				"name": "human_development_index",
+				"type": "UTF8"
+			}
+		]
 	}
 }
