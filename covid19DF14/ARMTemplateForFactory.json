@@ -2043,23 +2043,23 @@
 				},
 				"schema": [
 					{
-						"name": "Date",
-						"type": "INT96"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO3",
+						"name": "Country_Name",
 						"type": "UTF8"
 					},
 					{
-						"name": "Country_Region",
+						"name": "Code",
+						"type": "UTF8"
+					},
+					{
+						"name": "GDP",
+						"type": "UTF8"
+					},
+					{
+						"name": "GDP_per_capita",
+						"type": "UTF8"
+					},
+					{
+						"name": "GDP_per_capita_growth",
 						"type": "UTF8"
 					}
 				]
@@ -2144,7 +2144,28 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "location",
+						"type": "UTF8"
+					},
+					{
+						"name": "iso_code",
+						"type": "UTF8"
+					},
+					{
+						"name": "hospital_beds_per_thousand",
+						"type": "UTF8"
+					},
+					{
+						"name": "life_expectancy",
+						"type": "UTF8"
+					},
+					{
+						"name": "human_development_index",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
@@ -3829,23 +3850,27 @@
 				},
 				"schema": [
 					{
-						"name": "Date",
-						"type": "INT96"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO3",
+						"name": "Country",
 						"type": "UTF8"
 					},
 					{
-						"name": "Country_Region",
+						"name": "Total_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Urban_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Rural_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Population_Density",
+						"type": "UTF8"
+					},
+					{
+						"name": "Growth_Rate",
 						"type": "UTF8"
 					}
 				]

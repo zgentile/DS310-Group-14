@@ -993,23 +993,27 @@
 				},
 				"schema": [
 					{
-						"name": "Date",
-						"type": "INT96"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO3",
+						"name": "Country",
 						"type": "UTF8"
 					},
 					{
-						"name": "Country_Region",
+						"name": "Total_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Urban_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Rural_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Population_Density",
+						"type": "UTF8"
+					},
+					{
+						"name": "Growth_Rate",
 						"type": "UTF8"
 					}
 				]
