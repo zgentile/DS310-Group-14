@@ -132,18 +132,6 @@
 									},
 									{
 										"source": {
-											"name": "Year",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Year",
-											"type": "String",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
 											"name": "Total Population",
 											"type": "String",
 											"physicalType": "String"
@@ -183,61 +171,6 @@
 										},
 										"sink": {
 											"name": "Population_Density",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
-											"name": "Life Expectancy",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Life_Expectancy",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
-											"name": "Birth Rate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Birth_Rate",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
-											"name": "Death Rate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Death_Rate",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
-											"name": "Fertility Rate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Fertility_Rate",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
-											"name": "Infant Mortality Rate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Infant_Mortality_Rate",
 											"physicalType": "UTF8"
 										}
 									},
@@ -433,18 +366,6 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "Index",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Index",
-											"type": "String",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
 											"name": "location",
 											"type": "String",
 											"physicalType": "String"
@@ -499,18 +420,6 @@
 										},
 										"sink": {
 											"name": "human_development_index",
-											"type": "String",
-											"physicalType": "UTF8"
-										}
-									},
-									{
-										"source": {
-											"name": "population",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "population",
 											"type": "String",
 											"physicalType": "UTF8"
 										}
