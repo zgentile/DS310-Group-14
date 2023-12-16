@@ -486,6 +486,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "gdp_stats.parquet",
 						"fileSystem": "selected-columns"
 					},
 					"compressionCodec": "snappy"
@@ -588,32 +589,12 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "country_hospital_beds.parquet",
 						"fileSystem": "selected-columns"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": [
-					{
-						"name": "Date",
-						"type": "INT96"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO3",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country_Region",
-						"type": "UTF8"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
