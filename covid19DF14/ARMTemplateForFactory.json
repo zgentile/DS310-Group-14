@@ -130,8 +130,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Total Population",
-											"type": "String",
+											"name": "Total_Population",
 											"physicalType": "UTF8"
 										}
 									},
@@ -142,8 +141,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Urban Population",
-											"type": "String",
+											"name": "Urban_Population",
 											"physicalType": "UTF8"
 										}
 									},
@@ -154,8 +152,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Rural Population",
-											"type": "String",
+											"name": "Rural_Population",
 											"physicalType": "UTF8"
 										}
 									},
@@ -166,8 +163,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Population Density",
-											"type": "String",
+											"name": "Population_Density",
 											"physicalType": "UTF8"
 										}
 									},
@@ -178,8 +174,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Life Expectancy",
-											"type": "String",
+											"name": "Life_Expectancy",
 											"physicalType": "UTF8"
 										}
 									},
@@ -190,8 +185,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Birth Rate",
-											"type": "String",
+											"name": "Birth_Rate",
 											"physicalType": "UTF8"
 										}
 									},
@@ -202,8 +196,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Death Rate",
-											"type": "String",
+											"name": "Death_Rate",
 											"physicalType": "UTF8"
 										}
 									},
@@ -214,8 +207,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Fertility Rate",
-											"type": "String",
+											"name": "Fertility_Rate",
 											"physicalType": "UTF8"
 										}
 									},
@@ -226,8 +218,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Infant Mortality Rate",
-											"type": "String",
+											"name": "Infant_Mortality_Rate",
 											"physicalType": "UTF8"
 										}
 									},
@@ -238,8 +229,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Growth Rate",
-											"type": "String",
+											"name": "Growth_Rate",
 											"physicalType": "UTF8"
 										}
 									}
@@ -310,8 +300,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "Country Name",
-											"type": "String",
+											"name": "Country_Name",
 											"physicalType": "UTF8"
 										}
 									},
@@ -581,6 +570,60 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "CountryCode",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CountryCode",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Latitude",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 5,
+											"precision": 10
+										},
+										"sink": {
+											"name": "Latitude",
+											"type": "Decimal",
+											"physicalType": "DECIMAL"
+										}
+									},
+									{
+										"source": {
+											"name": "Longitude",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 5,
+											"precision": 10
+										},
+										"sink": {
+											"name": "Longitude",
+											"type": "Decimal",
+											"physicalType": "DECIMAL"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -3893,7 +3936,28 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "Date",
+						"type": "INT96"
+					},
+					{
+						"name": "Confirmed",
+						"type": "INT32"
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country_Region",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
