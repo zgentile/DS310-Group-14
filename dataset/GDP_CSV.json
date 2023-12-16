@@ -1,0 +1,44 @@
+{
+	"name": "GDP_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "gdp_stats.csv",
+				"fileSystem": "kaggledata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Country Name",
+				"type": "String"
+			},
+			{
+				"name": "Code",
+				"type": "String"
+			},
+			{
+				"name": "GDP",
+				"type": "String"
+			},
+			{
+				"name": "GDP_per_capita",
+				"type": "String"
+			},
+			{
+				"name": "GDP_per_capita_growth",
+				"type": "String"
+			}
+		]
+	}
+}

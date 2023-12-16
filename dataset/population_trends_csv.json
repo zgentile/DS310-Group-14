@@ -1,0 +1,72 @@
+{
+	"name": "population_trends_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Global_Population_Trends.csv",
+				"fileSystem": "kaggledata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Year",
+				"type": "String"
+			},
+			{
+				"name": "Total Population",
+				"type": "String"
+			},
+			{
+				"name": "Urban Population",
+				"type": "String"
+			},
+			{
+				"name": "Rural Population",
+				"type": "String"
+			},
+			{
+				"name": "Population Density",
+				"type": "String"
+			},
+			{
+				"name": "Life Expectancy",
+				"type": "String"
+			},
+			{
+				"name": "Birth Rate",
+				"type": "String"
+			},
+			{
+				"name": "Death Rate",
+				"type": "String"
+			},
+			{
+				"name": "Fertility Rate",
+				"type": "String"
+			},
+			{
+				"name": "Infant Mortality Rate",
+				"type": "String"
+			},
+			{
+				"name": "Growth Rate",
+				"type": "String"
+			}
+		]
+	}
+}

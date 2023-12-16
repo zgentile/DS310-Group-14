@@ -1,0 +1,52 @@
+{
+	"name": "Hospital_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "country_hospital_beds.csv",
+				"fileSystem": "kaggledata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Index",
+				"type": "String"
+			},
+			{
+				"name": "location",
+				"type": "String"
+			},
+			{
+				"name": "iso_code",
+				"type": "String"
+			},
+			{
+				"name": "hospital_beds_per_thousand",
+				"type": "String"
+			},
+			{
+				"name": "life_expectancy",
+				"type": "String"
+			},
+			{
+				"name": "human_development_index",
+				"type": "String"
+			},
+			{
+				"name": "population",
+				"type": "String"
+			}
+		]
+	}
+}
