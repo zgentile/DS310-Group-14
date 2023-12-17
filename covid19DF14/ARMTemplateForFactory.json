@@ -2613,7 +2613,68 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "ID",
+						"type": "INT32"
+					},
+					{
+						"name": "Updated",
+						"type": "DATE"
+					},
+					{
+						"name": "Confirmed",
+						"type": "INT32"
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "Deaths",
+						"type": "INT32"
+					},
+					{
+						"name": "Deaths_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "Recovered",
+						"type": "INT32"
+					},
+					{
+						"name": "Recovered_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "Latitude",
+						"type": "DECIMAL",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "Longitude",
+						"type": "DECIMAL",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "ISO2",
+						"type": "UTF8"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country_Region",
+						"type": "UTF8"
+					},
+					{
+						"name": "load_time",
+						"type": "INT96"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
@@ -4008,6 +4069,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "MergedMetrics.parquet",
 						"fileSystem": "unionedtable"
 					},
 					"compressionCodec": "snappy"
@@ -4202,7 +4264,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "metrics_lake",
+								"referenceName": "unioned_data",
 								"type": "DatasetReference"
 							},
 							"name": "metrics",
@@ -4225,6 +4287,10 @@
 					],
 					"scriptLines": [
 						"source(output(",
+						"          Country as string,",
+						"          CountryCode as string,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5),",
 						"          ID as integer,",
 						"          Updated as date,",
 						"          Confirmed as integer,",
@@ -4233,8 +4299,6 @@
 						"          Deaths_Change as integer,",
 						"          Recovered as integer,",
 						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
 						"          ISO2 as string,",
 						"          ISO3 as string,",
 						"          Country_Region as string,",
@@ -4296,7 +4360,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/unioned_data')]",
 				"[concat(variables('factoryId'), '/datasets/cases_data')]"
 			]
 		},
