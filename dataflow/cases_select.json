@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "metrics_lake",
+						"referenceName": "unioned_data",
 						"type": "DatasetReference"
 					},
 					"name": "metrics",
@@ -29,6 +29,10 @@
 			],
 			"scriptLines": [
 				"source(output(",
+				"          Country as string,",
+				"          CountryCode as string,",
+				"          Latitude as decimal(10,5),",
+				"          Longitude as decimal(10,5),",
 				"          ID as integer,",
 				"          Updated as date,",
 				"          Confirmed as integer,",
@@ -37,8 +41,6 @@
 				"          Deaths_Change as integer,",
 				"          Recovered as integer,",
 				"          Recovered_Change as integer,",
-				"          Latitude as decimal(10,5),",
-				"          Longitude as decimal(10,5),",
 				"          ISO2 as string,",
 				"          ISO3 as string,",
 				"          Country_Region as string,",
