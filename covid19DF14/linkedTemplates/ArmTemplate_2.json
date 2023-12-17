@@ -25,6 +25,50 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/sqlCountriesLake')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dbo.Country.parquet",
+						"fileSystem": "sqlserver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Country",
+						"type": "UTF8"
+					},
+					{
+						"name": "CountryCode",
+						"type": "UTF8"
+					},
+					{
+						"name": "Latitude",
+						"type": "DECIMAL",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "Longitude",
+						"type": "DECIMAL",
+						"precision": 10,
+						"scale": 5
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/unioned_data')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1324,6 +1368,252 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/temp_countries')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "azsql_countries_to_selected_columns",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "ParquetReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ID",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "ID",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Updated",
+											"type": "DateTime",
+											"physicalType": "DATE"
+										},
+										"sink": {
+											"name": "Updated",
+											"type": "DateTime",
+											"physicalType": "INT_96"
+										}
+									},
+									{
+										"source": {
+											"name": "Confirmed",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "Confirmed",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Confirmed_Change",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "Confirmed_Change",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Deaths",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "Deaths",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Deaths_Change",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "Deaths_Change",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Recovered",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "Recovered",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Recovered_Change",
+											"type": "Int32",
+											"physicalType": "INT32"
+										},
+										"sink": {
+											"name": "Recovered_Change",
+											"type": "Int32",
+											"physicalType": "INT_32"
+										}
+									},
+									{
+										"source": {
+											"name": "Latitude",
+											"type": "Decimal",
+											"physicalType": "DECIMAL",
+											"scale": 5,
+											"precision": 10
+										},
+										"sink": {
+											"name": "Latitude",
+											"type": "Decimal",
+											"physicalType": "DECIMAL"
+										}
+									},
+									{
+										"source": {
+											"name": "Longitude",
+											"type": "Decimal",
+											"physicalType": "DECIMAL",
+											"scale": 5,
+											"precision": 10
+										},
+										"sink": {
+											"name": "Longitude",
+											"type": "Decimal",
+											"physicalType": "DECIMAL"
+										}
+									},
+									{
+										"source": {
+											"name": "ISO2",
+											"type": "String",
+											"physicalType": "UTF8"
+										},
+										"sink": {
+											"name": "ISO2",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "ISO3",
+											"type": "String",
+											"physicalType": "UTF8"
+										},
+										"sink": {
+											"name": "ISO3",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Country_Region",
+											"type": "String",
+											"physicalType": "UTF8"
+										},
+										"sink": {
+											"name": "Country_Region",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "load_time",
+											"type": "DateTime",
+											"physicalType": "INT96"
+										},
+										"sink": {
+											"name": "load_time",
+											"type": "DateTime",
+											"physicalType": "INT_96"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "azuresql_country_parquet",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "azsql_country_selected_columns",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/country_parquet')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1998,7 +2288,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/sqlCountriesLake')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/metrics_union')]",
@@ -2090,252 +2382,6 @@
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     partitionBy('hash', 1)) ~> MergedMetricsSink"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_union2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "azuresql_metrics_parquet",
-								"type": "DatasetReference"
-							},
-							"name": "azuresqlmetrics"
-						},
-						{
-							"dataset": {
-								"referenceName": "metrics_data_lake",
-								"type": "DatasetReference"
-							},
-							"name": "vmsqlmetrics"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "unionedmetricsdata",
-								"type": "DatasetReference"
-							},
-							"name": "unionedmetrics"
-						}
-					],
-					"transformations": [
-						{
-							"name": "union1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> azuresqlmetrics",
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> vmsqlmetrics",
-						"azuresqlmetrics, vmsqlmetrics union(byName: true)~> union1",
-						"union1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp,",
-						"          Country as string,",
-						"          CountryCode as string",
-						"     ),",
-						"     format: 'parquet',",
-						"     partitionFileNames:['MergedMetrics.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> unionedmetrics"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/unionedmetricsdata')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/policy_select')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "policy_lake",
-								"type": "DatasetReference"
-							},
-							"name": "policy"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "selected_policy_data",
-								"type": "DatasetReference"
-							},
-							"name": "selectedPolicies"
-						}
-					],
-					"transformations": [
-						{
-							"name": "selectPolicies"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          CountryName as string,",
-						"          CountryCode as string,",
-						"          RegionName as string,",
-						"          RegionCode as string,",
-						"          Jurisdiction as string,",
-						"          Date as timestamp,",
-						"          C1_School_closing as double,",
-						"          C1_Flag as boolean,",
-						"          C2_Workplace_closing as double,",
-						"          C2_Flag as boolean,",
-						"          C3_Cancel_public_events as double,",
-						"          C3_Flag as boolean,",
-						"          C4_Restrictions_on_gatherings as double,",
-						"          C4_Flag as boolean,",
-						"          C5_Close_public_transport as double,",
-						"          C5_Flag as boolean,",
-						"          C6_Stay_at_home_requirements as double,",
-						"          C6_Flag as boolean,",
-						"          C7_Restrictions_on_internal_movement as double,",
-						"          C7_Flag as boolean,",
-						"          C8_International_travel_controls as double,",
-						"          E1_Income_support as double,",
-						"          E1_Flag as boolean,",
-						"          E2_Debt_contract_relief as double,",
-						"          E3_Fiscal_measures as double,",
-						"          E4_International_support as double,",
-						"          H1_Public_information_campaigns as double,",
-						"          H1_Flag as boolean,",
-						"          H2_Testing_policy as double,",
-						"          H3_Contact_tracing as double,",
-						"          H4_Emergency_investment_in_healthcare as double,",
-						"          H5_Investment_in_vaccines as double,",
-						"          H6_Facial_Coverings as double,",
-						"          H6_Flag as boolean,",
-						"          H7_Vaccination_policy as double,",
-						"          H7_Flag as boolean,",
-						"          H8_Protection_of_elderly_people as double,",
-						"          H8_Flag as boolean,",
-						"          M1_Wildcard as double,",
-						"          StringencyIndex as double,",
-						"          StringencyIndexForDisplay as double,",
-						"          StringencyLegacyIndex as double,",
-						"          StringencyLegacyIndexForDisplay as double,",
-						"          GovernmentResponseIndex as double,",
-						"          GovernmentResponseIndexForDisplay as double,",
-						"          ContainmentHealthIndex as double,",
-						"          ContainmentHealthIndexForDisplay as double,",
-						"          EconomicSupportIndex as double,",
-						"          EconomicSupportIndexForDisplay as double,",
-						"          id as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> policy",
-						"policy select(mapColumn(",
-						"          CountryName,",
-						"          Date,",
-						"          C1_School_closing,",
-						"          C2_Workplace_closing,",
-						"          C3_Cancel_public_events,",
-						"          C4_Restrictions_on_gatherings,",
-						"          C5_Close_public_transport,",
-						"          C6_Stay_at_home_requirements,",
-						"          C7_Restrictions_on_internal_movement,",
-						"          C8_International_travel_controls,",
-						"          E1_Income_support,",
-						"          E2_Debt_contract_relief,",
-						"          E3_Fiscal_measures,",
-						"          E4_International_support,",
-						"          H1_Public_information_campaigns,",
-						"          H2_Testing_policy,",
-						"          H3_Contact_tracing,",
-						"          H4_Emergency_investment_in_healthcare,",
-						"          H5_Investment_in_vaccines,",
-						"          H6_Facial_Coverings,",
-						"          H7_Vaccination_policy,",
-						"          H8_Protection_of_elderly_people,",
-						"          StringencyIndex,",
-						"          GovernmentResponseIndex,",
-						"          ContainmentHealthIndex,",
-						"          EconomicSupportIndex",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> selectPolicies",
-						"selectPolicies sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     partitionFileNames:['selectedpolicy.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> selectedPolicies"
 					]
 				}
 			},
