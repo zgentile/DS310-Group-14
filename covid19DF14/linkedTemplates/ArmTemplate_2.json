@@ -25,6 +25,28 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/selected_policy_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "selected-columns"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sqlCountriesLake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1389,7 +1411,7 @@
 							"source": {
 								"type": "ParquetSource",
 								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
+									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
@@ -1592,7 +1614,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "azuresql_country_parquet",
+								"referenceName": "azsql_countries_temp",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -2291,101 +2313,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/sqlCountriesLake')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_union')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "metrics_data_lake",
-								"type": "DatasetReference"
-							},
-							"name": "sqlMetrics"
-						},
-						{
-							"dataset": {
-								"referenceName": "azsql_metrics_data_lake",
-								"type": "DatasetReference"
-							},
-							"name": "azsqlMetrics"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "merged_metrics",
-								"type": "DatasetReference"
-							},
-							"name": "MergedMetricsSink"
-						}
-					],
-					"transformations": [
-						{
-							"name": "MetricsUnion"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> sqlMetrics",
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> azsqlMetrics",
-						"sqlMetrics, azsqlMetrics union(byName: true,",
-						"     partitionBy('hash', 1))~> MetricsUnion",
-						"MetricsUnion sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     partitionFileNames:['fullmetrics.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> MergedMetricsSink"
-					]
-				}
-			},
-			"dependsOn": []
 		}
 	]
 }
