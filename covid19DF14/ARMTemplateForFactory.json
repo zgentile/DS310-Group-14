@@ -4069,7 +4069,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "MergedMetrics.parquet",
 						"fileSystem": "unionedtable"
 					},
 					"compressionCodec": "snappy"
