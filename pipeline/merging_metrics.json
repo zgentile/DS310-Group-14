@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "metrics_union",
+						"referenceName": "metrics_union2",
 						"type": "DataFlowReference"
 					},
 					"compute": {
