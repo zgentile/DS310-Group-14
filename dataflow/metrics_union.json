@@ -22,7 +22,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "unioned_data",
+						"referenceName": "merged_metrics",
 						"type": "DatasetReference"
 					},
 					"name": "MergedMetricsSink"
