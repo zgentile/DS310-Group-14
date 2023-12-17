@@ -812,6 +812,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "counties_data.parquet",
 						"fileSystem": "selected-columns"
 					},
 					"compressionCodec": "snappy"
