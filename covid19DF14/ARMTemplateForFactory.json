@@ -4069,7 +4069,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "unionedtable"
+						"fileSystem": "workspace"
 					},
 					"compressionCodec": "snappy"
 				},
@@ -4732,7 +4732,7 @@
 						"MetricsUnion sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
-						"     partitionFileNames:['MergedMetrics.parquet'],",
+						"     partitionFileNames:['fullmetrics.parquet'],",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
