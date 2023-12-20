@@ -156,14 +156,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "azure_sql_country",
+								"referenceName": "azsql_countries_src",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "azuresql_country_parquet",
+								"referenceName": "azsql_countries_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -209,14 +209,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "AzureSqlTable1",
+								"referenceName": "azsql_metrics_src",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "azuresql_metrics_parquet",
+								"referenceName": "azsql_metrics_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -262,14 +262,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "azure_sql_dates",
+								"referenceName": "azsql_dates_src",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "azuresql_dates_parquet",
+								"referenceName": "azsql_dates_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -283,12 +283,12 @@
 				"lastPublishTime": "2023-11-03T23:24:04Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/azure_sql_country')]",
-				"[concat(variables('factoryId'), '/datasets/azuresql_country_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
-				"[concat(variables('factoryId'), '/datasets/azuresql_metrics_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/azure_sql_dates')]",
-				"[concat(variables('factoryId'), '/datasets/azuresql_dates_parquet')]"
+				"[concat(variables('factoryId'), '/datasets/azsql_countries_src')]",
+				"[concat(variables('factoryId'), '/datasets/azsql_countries_lake')]",
+				"[concat(variables('factoryId'), '/datasets/azsql_metrics_src')]",
+				"[concat(variables('factoryId'), '/datasets/azsql_metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/azsql_dates_src')]",
+				"[concat(variables('factoryId'), '/datasets/azsql_dates_lake')]"
 			]
 		},
 		{
@@ -318,7 +318,7 @@
 							"sink": {
 								"type": "ParquetSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
+									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
 									"type": "ParquetWriteSettings"
@@ -799,14 +799,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "policy_covid_data",
+								"referenceName": "policy_cosmosdb",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "policy_parquet",
+								"referenceName": "policy_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -820,8 +820,8 @@
 				"lastPublishTime": "2023-11-06T17:51:30Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/policy_covid_data')]",
-				"[concat(variables('factoryId'), '/datasets/policy_parquet')]",
+				"[concat(variables('factoryId'), '/datasets/policy_cosmosdb')]",
+				"[concat(variables('factoryId'), '/datasets/policy_lake')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
@@ -946,14 +946,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "population_trends_csv",
+								"referenceName": "population_csv",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "population_trends_parquet",
+								"referenceName": "population_ods",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1066,14 +1066,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "GDP_CSV",
+								"referenceName": "gdp_csv",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "GDP_Parquet",
+								"referenceName": "gdp_ods",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1187,14 +1187,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "Hospital_CSV",
+								"referenceName": "hospital_csv",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "Hospital_Parquet",
+								"referenceName": "hospital_ods",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1207,12 +1207,12 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/population_trends_csv')]",
-				"[concat(variables('factoryId'), '/datasets/population_trends_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/GDP_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/GDP_Parquet')]",
-				"[concat(variables('factoryId'), '/datasets/Hospital_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/Hospital_Parquet')]"
+				"[concat(variables('factoryId'), '/datasets/population_csv')]",
+				"[concat(variables('factoryId'), '/datasets/population_ods')]",
+				"[concat(variables('factoryId'), '/datasets/gdp_csv')]",
+				"[concat(variables('factoryId'), '/datasets/gdp_ods')]",
+				"[concat(variables('factoryId'), '/datasets/hospital_csv')]",
+				"[concat(variables('factoryId'), '/datasets/hospital_ods')]"
 			]
 		},
 		{
@@ -1497,14 +1497,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "country_sql",
+								"referenceName": "sqlsvr_country_src",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "country_parquet",
+								"referenceName": "sqlsvr_country_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1550,14 +1550,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "metrics_sql",
+								"referenceName": "sqlsvr_metrics_src",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "metrics_parquet",
+								"referenceName": "sqlsvr_metrics_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1603,14 +1603,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "dates_sql",
+								"referenceName": "sqlsvr_dates_src",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "dates_parquet",
+								"referenceName": "sqlsvr_dates_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1624,12 +1624,12 @@
 				"lastPublishTime": "2023-11-03T23:24:03Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/country_sql')]",
-				"[concat(variables('factoryId'), '/datasets/country_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/metrics_sql')]",
-				"[concat(variables('factoryId'), '/datasets/metrics_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/dates_sql')]",
-				"[concat(variables('factoryId'), '/datasets/dates_parquet')]"
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_country_src')]",
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_country_lake')]",
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_metrics_src')]",
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_dates_src')]",
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_dates_lake')]"
 			]
 		},
 		{
@@ -1655,7 +1655,7 @@
 							"source": {
 								"type": "ParquetSource",
 								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
+									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
@@ -1738,14 +1738,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "azsql_countries_temp",
+								"referenceName": "azsql_countries_lake",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "azsql_country_selected_columns",
+								"referenceName": "countries_ods",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1758,8 +1758,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/azsql_countries_temp')]",
-				"[concat(variables('factoryId'), '/datasets/azsql_country_selected_columns')]"
+				"[concat(variables('factoryId'), '/datasets/azsql_countries_lake')]",
+				"[concat(variables('factoryId'), '/datasets/countries_ods')]"
 			]
 		},
 		{
@@ -1810,780 +1810,32 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"name": "[concat(parameters('factoryName'), '/azsql_countries_lake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "azure_sql_covid",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Updated",
-						"type": "date"
-					},
-					{
-						"name": "Confirmed",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Deaths",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Deaths_Change",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Recovered",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Recovered_Change",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Latitude",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "ISO2",
-						"type": "varchar"
-					},
-					{
-						"name": "ISO3",
-						"type": "varchar"
-					},
-					{
-						"name": "Country_Region",
-						"type": "varchar"
-					},
-					{
-						"name": "load_time",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Covid19_Metrics"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/azure_sql_covid')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CosmosDbNoSqlContainer1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "covid_cosmosdb",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "CosmosDbSqlApiCollection",
-				"schema": {
-					"type": "object",
-					"properties": {
-						"CountryName": {
-							"type": "string"
-						},
-						"CountryCode": {
-							"type": "string"
-						},
-						"RegionName": {
-							"type": "null"
-						},
-						"RegionCode": {
-							"type": "null"
-						},
-						"Jurisdiction": {
-							"type": "string"
-						},
-						"Date": {
-							"type": "string"
-						},
-						"C1_School closing": {
-							"type": "integer"
-						},
-						"C1_Flag": {
-							"type": "integer"
-						},
-						"C2_Workplace closing": {
-							"type": "integer"
-						},
-						"C2_Flag": {
-							"type": "integer"
-						},
-						"C3_Cancel public events": {
-							"type": "integer"
-						},
-						"C3_Flag": {
-							"type": "integer"
-						},
-						"C4_Restrictions on gatherings": {
-							"type": "integer"
-						},
-						"C4_Flag": {
-							"type": "integer"
-						},
-						"C5_Close public transport": {
-							"type": "integer"
-						},
-						"C5_Flag": {
-							"type": "integer"
-						},
-						"C6_Stay at home requirements": {
-							"type": "integer"
-						},
-						"C6_Flag": {
-							"type": "integer"
-						},
-						"C7_Restrictions on internal movement": {
-							"type": "integer"
-						},
-						"C7_Flag": {
-							"type": "integer"
-						},
-						"C8_International travel controls": {
-							"type": "integer"
-						},
-						"E1_Income support": {
-							"type": "integer"
-						},
-						"E1_Flag": {
-							"type": "integer"
-						},
-						"E2_Debt contract relief": {
-							"type": "integer"
-						},
-						"E3_Fiscal measures": {
-							"type": "integer"
-						},
-						"E4_International support": {
-							"type": "integer"
-						},
-						"H1_Public information campaigns": {
-							"type": "integer"
-						},
-						"H1_Flag": {
-							"type": "integer"
-						},
-						"H2_Testing policy": {
-							"type": "integer"
-						},
-						"H3_Contact tracing": {
-							"type": "integer"
-						},
-						"H4_Emergency investment in healthcare": {
-							"type": "integer"
-						},
-						"H5_Investment in vaccines": {
-							"type": "integer"
-						},
-						"H6_Facial Coverings": {
-							"type": "integer"
-						},
-						"H6_Flag": {
-							"type": "integer"
-						},
-						"H7_Vaccination policy": {
-							"type": "integer"
-						},
-						"H7_Flag": {
-							"type": "integer"
-						},
-						"H8_Protection of elderly people": {
-							"type": "integer"
-						},
-						"H8_Flag": {
-							"type": "integer"
-						},
-						"M1_Wildcard": {
-							"type": "integer"
-						},
-						"StringencyIndex": {
-							"type": "integer"
-						},
-						"StringencyIndexForDisplay": {
-							"type": "integer"
-						},
-						"StringencyLegacyIndex": {
-							"type": "integer"
-						},
-						"StringencyLegacyIndexForDisplay": {
-							"type": "integer"
-						},
-						"GovernmentResponseIndex": {
-							"type": "integer"
-						},
-						"GovernmentResponseIndexForDisplay": {
-							"type": "integer"
-						},
-						"ContainmentHealthIndex": {
-							"type": "integer"
-						},
-						"ContainmentHealthIndexForDisplay": {
-							"type": "integer"
-						},
-						"EconomicSupportIndex": {
-							"type": "integer"
-						},
-						"EconomicSupportIndexForDisplay": {
-							"type": "integer"
-						}
-					}
-				},
-				"typeProperties": {
-					"collectionName": "covidpolicy"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/covid_cosmosdb')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/GDP_CSV')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "gdp_stats.csv",
-						"fileSystem": "kaggledata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Country Name",
-						"type": "String"
-					},
-					{
-						"name": "Code",
-						"type": "String"
-					},
-					{
-						"name": "GDP",
-						"type": "String"
-					},
-					{
-						"name": "GDP_per_capita",
-						"type": "String"
-					},
-					{
-						"name": "GDP_per_capita_growth",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/GDP_Parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
+					"referenceName": "AzureSQL_blob",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "gdp_stats.parquet",
-						"fileSystem": "selected-columns"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "Country_Name",
-						"type": "UTF8"
-					},
-					{
-						"name": "Code",
-						"type": "UTF8"
-					},
-					{
-						"name": "GDP",
-						"type": "UTF8"
-					},
-					{
-						"name": "GDP_per_capita",
-						"type": "UTF8"
-					},
-					{
-						"name": "GDP_per_capita_growth",
-						"type": "UTF8"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Hospital_CSV')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "country_hospital_beds.csv",
-						"fileSystem": "kaggledata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Index",
-						"type": "String"
-					},
-					{
-						"name": "location",
-						"type": "String"
-					},
-					{
-						"name": "iso_code",
-						"type": "String"
-					},
-					{
-						"name": "hospital_beds_per_thousand",
-						"type": "String"
-					},
-					{
-						"name": "life_expectancy",
-						"type": "String"
-					},
-					{
-						"name": "human_development_index",
-						"type": "String"
-					},
-					{
-						"name": "population",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Hospital_Parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "country_hospital_beds.parquet",
-						"fileSystem": "selected-columns"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "location",
-						"type": "UTF8"
-					},
-					{
-						"name": "iso_code",
-						"type": "UTF8"
-					},
-					{
-						"name": "hospital_beds_per_thousand",
-						"type": "UTF8"
-					},
-					{
-						"name": "life_expectancy",
-						"type": "UTF8"
-					},
-					{
-						"name": "human_development_index",
-						"type": "UTF8"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/MergedCountries')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "unionedtable"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "ID",
-						"type": "INT32"
-					},
-					{
-						"name": "Updated",
-						"type": "DATE"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Latitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "ISO2",
-						"type": "UTF8"
-					},
-					{
-						"name": "ISO3",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country_Region",
-						"type": "UTF8"
-					},
-					{
-						"name": "load_time",
-						"type": "INT96"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/azsqlCountriesLake')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
+						"type": "AzureBlobStorageLocation",
 						"fileName": "dbo.Country.parquet",
-						"fileSystem": "azuresql"
+						"container": "azuresql"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": [
-					{
-						"name": "Country",
-						"type": "UTF8"
-					},
-					{
-						"name": "CountryCode",
-						"type": "UTF8"
-					},
-					{
-						"name": "Latitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSQL_blob')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/azsql_countries_temp')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "dbo.Country.parquet",
-						"fileSystem": "azuresql"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "Country",
-						"type": "UTF8"
-					},
-					{
-						"name": "CountryCode",
-						"type": "UTF8"
-					},
-					{
-						"name": "Latitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/azsql_country_selected_columns')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "countries_data.parquet",
-						"fileSystem": "selected-columns"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "Country",
-						"type": "UTF8"
-					},
-					{
-						"name": "Total_Population",
-						"type": "UTF8"
-					},
-					{
-						"name": "Urban_Population",
-						"type": "UTF8"
-					},
-					{
-						"name": "Rural_Population",
-						"type": "UTF8"
-					},
-					{
-						"name": "Population_Density",
-						"type": "UTF8"
-					},
-					{
-						"name": "Growth_Rate",
-						"type": "UTF8"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/azsql_metrics_data_lake')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "dbo.Covid19_Metrics.parquet",
-						"fileSystem": "azuresql"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "ID",
-						"type": "INT32"
-					},
-					{
-						"name": "Updated",
-						"type": "DATE"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Latitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "ISO2",
-						"type": "UTF8"
-					},
-					{
-						"name": "ISO3",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country_Region",
-						"type": "UTF8"
-					},
-					{
-						"name": "load_time",
-						"type": "INT96"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/azure_sql_country')]",
+			"name": "[concat(parameters('factoryName'), '/azsql_countries_src')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -2625,7 +1877,32 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/azure_sql_dates')]",
+			"name": "[concat(parameters('factoryName'), '/azsql_dates_lake')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSQL_blob",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "dbo.Dates.parquet",
+						"container": "azuresql"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSQL_blob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azsql_dates_src')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -2739,57 +2016,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/azuresql_country_parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSQL_blob",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "dbo.Covid19_Metrics.parquet",
-						"container": "azuresql"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSQL_blob')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/azuresql_dates_parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSQL_blob",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "dbo.Dates.parquet",
-						"container": "azuresql"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSQL_blob')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/azuresql_metrics_parquet')]",
+			"name": "[concat(parameters('factoryName'), '/azsql_metrics_lake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -2875,7 +2102,98 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/cases_data')]",
+			"name": "[concat(parameters('factoryName'), '/azsql_metrics_src')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "azure_sql_covid",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Updated",
+						"type": "date"
+					},
+					{
+						"name": "Confirmed",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Deaths",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Deaths_Change",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Recovered",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Recovered_Change",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Latitude",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "Longitude",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "ISO2",
+						"type": "varchar"
+					},
+					{
+						"name": "ISO3",
+						"type": "varchar"
+					},
+					{
+						"name": "Country_Region",
+						"type": "varchar"
+					},
+					{
+						"name": "load_time",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Covid19_Metrics"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/azure_sql_covid')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cases_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -3004,7 +2322,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/countries')]",
+			"name": "[concat(parameters('factoryName'), '/countries_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -3017,105 +2335,44 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "countries_data.parquet",
 						"fileSystem": "selected-columns"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": [
-					{
-						"name": "Date",
-						"type": "INT96"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO3",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country_Region",
-						"type": "UTF8"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/country_parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Covid19_blob_1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sqlserver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Covid19_blob_1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/country_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServer3",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
 				"schema": [
 					{
 						"name": "Country",
-						"type": "varchar"
+						"type": "UTF8"
 					},
 					{
-						"name": "CountryCode",
-						"type": "varchar"
+						"name": "Total_Population",
+						"type": "UTF8"
 					},
 					{
-						"name": "Latitude",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 5
+						"name": "Urban_Population",
+						"type": "UTF8"
 					},
 					{
-						"name": "Longitude",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 5
+						"name": "Rural_Population",
+						"type": "UTF8"
+					},
+					{
+						"name": "Population_Density",
+						"type": "UTF8"
+					},
+					{
+						"name": "Growth_Rate",
+						"type": "UTF8"
 					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Country"
-				}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer3')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dates')]",
+			"name": "[concat(parameters('factoryName'), '/dates_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -3160,251 +2417,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dates_lake')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "dbo.Dates.parquet",
-						"fileSystem": "azuresql"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "DateKey",
-						"type": "INT32"
-					},
-					{
-						"name": "FullDate",
-						"type": "DATE"
-					},
-					{
-						"name": "isWeekDay",
-						"type": "BOOLEAN"
-					},
-					{
-						"name": "DayOfWeek",
-						"type": "INT32"
-					},
-					{
-						"name": "DayOfMonth",
-						"type": "INT32"
-					},
-					{
-						"name": "DayOfQuarter",
-						"type": "INT32"
-					},
-					{
-						"name": "DayOfYear",
-						"type": "INT32"
-					},
-					{
-						"name": "DayName",
-						"type": "UTF8"
-					},
-					{
-						"name": "WeekOfYear",
-						"type": "INT32"
-					},
-					{
-						"name": "WeekName",
-						"type": "UTF8"
-					},
-					{
-						"name": "MonthOfYear",
-						"type": "INT32"
-					},
-					{
-						"name": "MonthName",
-						"type": "UTF8"
-					},
-					{
-						"name": "CalendarQuarter",
-						"type": "INT32"
-					},
-					{
-						"name": "CalendarQuarterName",
-						"type": "UTF8"
-					},
-					{
-						"name": "CalendarYear",
-						"type": "INT32"
-					},
-					{
-						"name": "FiscalMonth",
-						"type": "INT32"
-					},
-					{
-						"name": "FiscalMonthName",
-						"type": "UTF8"
-					},
-					{
-						"name": "FiscalQuarter",
-						"type": "INT32"
-					},
-					{
-						"name": "FiscalQuarterName",
-						"type": "UTF8"
-					},
-					{
-						"name": "FiscalYear",
-						"type": "INT32"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dates_parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Covid19_blob_1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sqlserver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Covid19_blob_1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dates_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServer3",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "DateKey",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "FullDate",
-						"type": "date"
-					},
-					{
-						"name": "isWeekDay",
-						"type": "bit"
-					},
-					{
-						"name": "DayOfWeek",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "DayOfMonth",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "DayOfQuarter",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "DayOfYear",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "DayName",
-						"type": "varchar"
-					},
-					{
-						"name": "WeekOfYear",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "WeekName",
-						"type": "varchar"
-					},
-					{
-						"name": "MonthOfYear",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "MonthName",
-						"type": "varchar"
-					},
-					{
-						"name": "CalendarQuarter",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "CalendarQuarterName",
-						"type": "varchar"
-					},
-					{
-						"name": "CalendarYear",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "FiscalMonth",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "FiscalMonthName",
-						"type": "varchar"
-					},
-					{
-						"name": "FiscalQuarter",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "FiscalQuarterName",
-						"type": "varchar"
-					},
-					{
-						"name": "FiscalYear",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Dates"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer3')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/deaths_data')]",
+			"name": "[concat(parameters('factoryName'), '/deaths_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -3440,6 +2453,204 @@
 					},
 					{
 						"name": "Country_Region",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/gdp_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "gdp_stats.csv",
+						"fileSystem": "kaggledata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Country Name",
+						"type": "String"
+					},
+					{
+						"name": "Code",
+						"type": "String"
+					},
+					{
+						"name": "GDP",
+						"type": "String"
+					},
+					{
+						"name": "GDP_per_capita",
+						"type": "String"
+					},
+					{
+						"name": "GDP_per_capita_growth",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/gdp_ods')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "gdp_stats.parquet",
+						"fileSystem": "selected-columns"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Country_Name",
+						"type": "UTF8"
+					},
+					{
+						"name": "Code",
+						"type": "UTF8"
+					},
+					{
+						"name": "GDP",
+						"type": "UTF8"
+					},
+					{
+						"name": "GDP_per_capita",
+						"type": "UTF8"
+					},
+					{
+						"name": "GDP_per_capita_growth",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/hospital_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "country_hospital_beds.csv",
+						"fileSystem": "kaggledata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Index",
+						"type": "String"
+					},
+					{
+						"name": "location",
+						"type": "String"
+					},
+					{
+						"name": "iso_code",
+						"type": "String"
+					},
+					{
+						"name": "hospital_beds_per_thousand",
+						"type": "String"
+					},
+					{
+						"name": "life_expectancy",
+						"type": "String"
+					},
+					{
+						"name": "human_development_index",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/hospital_ods')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "country_hospital_beds.parquet",
+						"fileSystem": "selected-columns"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "location",
+						"type": "UTF8"
+					},
+					{
+						"name": "iso_code",
+						"type": "UTF8"
+					},
+					{
+						"name": "hospital_beds_per_thousand",
+						"type": "UTF8"
+					},
+					{
+						"name": "life_expectancy",
+						"type": "UTF8"
+					},
+					{
+						"name": "human_development_index",
 						"type": "UTF8"
 					}
 				]
@@ -3450,116 +2661,6 @@
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/merged_metrics')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "workspace"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_data_lake')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "dbo.Covid19_Metrics.parquet",
-						"fileSystem": "sqlserver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "ID",
-						"type": "INT32"
-					},
-					{
-						"name": "Updated",
-						"type": "DATE"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Latitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "ISO2",
-						"type": "UTF8"
-					},
-					{
-						"name": "ISO3",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country_Region",
-						"type": "UTF8"
-					},
-					{
-						"name": "load_time",
-						"type": "INT96"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_lake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -3637,6 +2738,14 @@
 					{
 						"name": "load_time",
 						"type": "INT96"
+					},
+					{
+						"name": "Country",
+						"type": "UTF8"
+					},
+					{
+						"name": "CountryCode",
+						"type": "UTF8"
 					}
 				]
 			},
@@ -3645,123 +2754,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/metrics_parquet')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "dbo.Covid19_Metrics.parquet",
-						"fileSystem": "sqlserver"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SqlServer3",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Updated",
-						"type": "date"
-					},
-					{
-						"name": "Confirmed",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Deaths",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Deaths_Change",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Recovered",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Recovered_Change",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "Latitude",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "ISO2",
-						"type": "varchar"
-					},
-					{
-						"name": "ISO3",
-						"type": "varchar"
-					},
-					{
-						"name": "Country_Region",
-						"type": "varchar"
-					},
-					{
-						"name": "load_time",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Covid19_Metrics"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer3')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/policy_covid_data')]",
+			"name": "[concat(parameters('factoryName'), '/policy_cosmosdb')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -4007,32 +3000,31 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/policy_parquet')]",
+			"name": "[concat(parameters('factoryName'), '/policy_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "Cosmos_blob",
+					"referenceName": "AzureDataLakeStorage1",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "policy_parquet",
-						"container": "cosmosdb"
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "selected-columns"
 					},
 					"compressionCodec": "snappy"
 				},
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Cosmos_blob')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/population_trends_csv')]",
+			"name": "[concat(parameters('factoryName'), '/population_csv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -4109,7 +3101,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/population_trends_parquet')]",
+			"name": "[concat(parameters('factoryName'), '/population_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -4159,7 +3151,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/recoveries_data')]",
+			"name": "[concat(parameters('factoryName'), '/recoveries_ods')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -4204,31 +3196,211 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/selected_policy_data')]",
+			"name": "[concat(parameters('factoryName'), '/sqlsvr_country_lake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
+					"referenceName": "Covid19_blob_1",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "selected-columns"
+						"type": "AzureBlobStorageLocation",
+						"container": "sqlserver"
 					},
 					"compressionCodec": "snappy"
 				},
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/Covid19_blob_1')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/sqlCountriesLake')]",
+			"name": "[concat(parameters('factoryName'), '/sqlsvr_country_src')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "CountryCode",
+						"type": "varchar"
+					},
+					{
+						"name": "Latitude",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "Longitude",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 5
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Country"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServer3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sqlsvr_dates_lake')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Covid19_blob_1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sqlserver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Covid19_blob_1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sqlsvr_dates_src')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "DateKey",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FullDate",
+						"type": "date"
+					},
+					{
+						"name": "isWeekDay",
+						"type": "bit"
+					},
+					{
+						"name": "DayOfWeek",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DayOfMonth",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DayOfQuarter",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DayOfYear",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DayName",
+						"type": "varchar"
+					},
+					{
+						"name": "WeekOfYear",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "WeekName",
+						"type": "varchar"
+					},
+					{
+						"name": "MonthOfYear",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "MonthName",
+						"type": "varchar"
+					},
+					{
+						"name": "CalendarQuarter",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CalendarQuarterName",
+						"type": "varchar"
+					},
+					{
+						"name": "CalendarYear",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FiscalMonth",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FiscalMonthName",
+						"type": "varchar"
+					},
+					{
+						"name": "FiscalQuarter",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FiscalQuarterName",
+						"type": "varchar"
+					},
+					{
+						"name": "FiscalYear",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Dates"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServer3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sqlsvr_metrics_lake')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -4241,57 +3413,11 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "dbo.Country.parquet",
+						"fileName": "dbo.Covid19_Metrics.parquet",
 						"fileSystem": "sqlserver"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": [
-					{
-						"name": "Country",
-						"type": "UTF8"
-					},
-					{
-						"name": "CountryCode",
-						"type": "UTF8"
-					},
-					{
-						"name": "Latitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					},
-					{
-						"name": "Longitude",
-						"type": "DECIMAL",
-						"precision": 10,
-						"scale": 5
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/unioned_data')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "MergedMetrics.parquet",
-						"fileSystem": "unionedtable"
-					},
-					"compressionCodec": "snappy"
-				},
 				"schema": []
 			},
 			"dependsOn": [
@@ -4299,96 +3425,94 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/unionedmetricsdata')]",
+			"name": "[concat(parameters('factoryName'), '/sqlsvr_metrics_src')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
+					"referenceName": "SqlServer3",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "unionedtable"
-					},
-					"compressionCodec": "snappy"
-				},
+				"type": "SqlServerTable",
 				"schema": [
 					{
 						"name": "ID",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Updated",
-						"type": "DATE"
+						"type": "date"
 					},
 					{
 						"name": "Confirmed",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Confirmed_Change",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Deaths",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Deaths_Change",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Recovered",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Recovered_Change",
-						"type": "INT32"
+						"type": "int",
+						"precision": 10
 					},
 					{
 						"name": "Latitude",
-						"type": "DECIMAL",
+						"type": "decimal",
 						"precision": 10,
 						"scale": 5
 					},
 					{
 						"name": "Longitude",
-						"type": "DECIMAL",
+						"type": "decimal",
 						"precision": 10,
 						"scale": 5
 					},
 					{
 						"name": "ISO2",
-						"type": "UTF8"
+						"type": "varchar"
 					},
 					{
 						"name": "ISO3",
-						"type": "UTF8"
+						"type": "varchar"
 					},
 					{
 						"name": "Country_Region",
-						"type": "UTF8"
+						"type": "varchar"
 					},
 					{
 						"name": "load_time",
-						"type": "INT96"
-					},
-					{
-						"name": "Country",
-						"type": "UTF8"
-					},
-					{
-						"name": "CountryCode",
-						"type": "UTF8"
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Covid19_Metrics"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/SqlServer3')]"
 			]
 		},
 		{
@@ -4575,7 +3699,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "unioned_data",
+								"referenceName": "merged_metrics",
 								"type": "DatasetReference"
 							},
 							"name": "metrics",
@@ -4585,7 +3709,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "cases_data",
+								"referenceName": "cases_ods",
 								"type": "DatasetReference"
 							},
 							"name": "selectedCases"
@@ -4611,11 +3735,13 @@
 						"          ISO2 as string,",
 						"          ISO3 as string,",
 						"          Country_Region as string,",
-						"          load_time as timestamp",
+						"          load_time as timestamp,",
+						"          Country as string,",
+						"          CountryCode as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
+						"     ignoreNoFilesFound: false,",
 						"     format: 'parquet',",
 						"     partitionBy('hash', 1)) ~> metrics",
 						"metrics select(mapColumn(",
@@ -4669,8 +3795,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/unioned_data')]",
-				"[concat(variables('factoryId'), '/datasets/cases_data')]"
+				"[concat(variables('factoryId'), '/datasets/merged_metrics')]",
+				"[concat(variables('factoryId'), '/datasets/cases_ods')]"
 			]
 		},
 		{
@@ -4683,7 +3809,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "dates_lake",
+								"referenceName": "azsql_dates_lake",
 								"type": "DatasetReference"
 							},
 							"name": "dates"
@@ -4692,7 +3818,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "dates",
+								"referenceName": "dates_ods",
 								"type": "DatasetReference"
 							},
 							"name": "data"
@@ -4700,31 +3826,9 @@
 					],
 					"transformations": [],
 					"scriptLines": [
-						"source(output(",
-						"          DateKey as integer,",
-						"          FullDate as date,",
-						"          isWeekDay as boolean,",
-						"          DayOfWeek as integer,",
-						"          DayOfMonth as integer,",
-						"          DayOfQuarter as integer,",
-						"          DayOfYear as integer,",
-						"          DayName as string,",
-						"          WeekOfYear as integer,",
-						"          WeekName as string,",
-						"          MonthOfYear as integer,",
-						"          MonthName as string,",
-						"          CalendarQuarter as integer,",
-						"          CalendarQuarterName as string,",
-						"          CalendarYear as integer,",
-						"          FiscalMonth as integer,",
-						"          FiscalMonthName as string,",
-						"          FiscalQuarter as integer,",
-						"          FiscalQuarterName as string,",
-						"          FiscalYear as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
+						"source(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
+						"     ignoreNoFilesFound: false,",
 						"     format: 'parquet') ~> dates",
 						"dates sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
@@ -4747,8 +3851,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/dates_lake')]",
-				"[concat(variables('factoryId'), '/datasets/dates')]"
+				"[concat(variables('factoryId'), '/datasets/azsql_dates_lake')]",
+				"[concat(variables('factoryId'), '/datasets/dates_ods')]"
 			]
 		},
 		{
@@ -4761,7 +3865,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "metrics_lake",
+								"referenceName": "merged_metrics",
 								"type": "DatasetReference"
 							},
 							"name": "metrics",
@@ -4771,7 +3875,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "deaths_data",
+								"referenceName": "deaths_ods",
 								"type": "DatasetReference"
 							},
 							"name": "selectedDeaths"
@@ -4797,11 +3901,13 @@
 						"          ISO2 as string,",
 						"          ISO3 as string,",
 						"          Country_Region as string,",
-						"          load_time as timestamp",
+						"          load_time as timestamp,",
+						"          Country as string,",
+						"          CountryCode as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
+						"     ignoreNoFilesFound: false,",
 						"     format: 'parquet',",
 						"     partitionBy('hash', 1)) ~> metrics",
 						"metrics select(mapColumn(",
@@ -4834,8 +3940,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/metrics_lake')]",
-				"[concat(variables('factoryId'), '/datasets/deaths_data')]"
+				"[concat(variables('factoryId'), '/datasets/merged_metrics')]",
+				"[concat(variables('factoryId'), '/datasets/deaths_ods')]"
 			]
 		},
 		{
@@ -4848,14 +3954,14 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "azuresql_metrics_parquet",
+								"referenceName": "azsql_metrics_lake",
 								"type": "DatasetReference"
 							},
 							"name": "azuresqlmetrics"
 						},
 						{
 							"dataset": {
-								"referenceName": "metrics_data_lake",
+								"referenceName": "sqlsvr_metrics_lake",
 								"type": "DatasetReference"
 							},
 							"name": "vmsqlmetrics"
@@ -4864,7 +3970,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "unionedmetricsdata",
+								"referenceName": "merged_metrics",
 								"type": "DatasetReference"
 							},
 							"name": "unionedmetrics"
@@ -4896,23 +4002,7 @@
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
 						"     format: 'parquet') ~> azuresqlmetrics",
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
+						"source(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
 						"     format: 'parquet') ~> vmsqlmetrics",
@@ -4949,9 +4039,9 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/azuresql_metrics_parquet')]",
-				"[concat(variables('factoryId'), '/datasets/metrics_data_lake')]",
-				"[concat(variables('factoryId'), '/datasets/unionedmetricsdata')]"
+				"[concat(variables('factoryId'), '/datasets/azsql_metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/sqlsvr_metrics_lake')]",
+				"[concat(variables('factoryId'), '/datasets/merged_metrics')]"
 			]
 		},
 		{
@@ -4973,7 +4063,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "selected_policy_data",
+								"referenceName": "policy_ods",
 								"type": "DatasetReference"
 							},
 							"name": "selectedPolicies"
@@ -5086,7 +4176,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/policy_lake')]",
-				"[concat(variables('factoryId'), '/datasets/selected_policy_data')]"
+				"[concat(variables('factoryId'), '/datasets/policy_ods')]"
 			]
 		},
 		{
@@ -5099,7 +4189,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "metrics_lake",
+								"referenceName": "merged_metrics",
 								"type": "DatasetReference"
 							},
 							"name": "metrics",
@@ -5109,7 +4199,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "recoveries_data",
+								"referenceName": "recoveries_ods",
 								"type": "DatasetReference"
 							},
 							"name": "selectedRecoveries"
@@ -5135,11 +4225,13 @@
 						"          ISO2 as string,",
 						"          ISO3 as string,",
 						"          Country_Region as string,",
-						"          load_time as timestamp",
+						"          load_time as timestamp,",
+						"          Country as string,",
+						"          CountryCode as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
+						"     ignoreNoFilesFound: false,",
 						"     format: 'parquet',",
 						"     partitionBy('hash', 1)) ~> metrics",
 						"metrics select(mapColumn(",
@@ -5172,8 +4264,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/metrics_lake')]",
-				"[concat(variables('factoryId'), '/datasets/recoveries_data')]"
+				"[concat(variables('factoryId'), '/datasets/merged_metrics')]",
+				"[concat(variables('factoryId'), '/datasets/recoveries_ods')]"
 			]
 		}
 	]
