@@ -1,5 +1,5 @@
 {
-	"name": "azuresql_dates_parquet",
+	"name": "azsql_dates_lake",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSQL_blob",

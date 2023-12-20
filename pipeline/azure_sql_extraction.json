@@ -96,13 +96,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "azure_sql_country",
+						"referenceName": "azsql_countries_src",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "azuresql_country_parquet",
+						"referenceName": "azsql_countries_lake",
 						"type": "DatasetReference"
 					}
 				]
@@ -147,13 +147,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "azsql_metrics_src",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "azuresql_metrics_parquet",
+						"referenceName": "azsql_metrics_lake",
 						"type": "DatasetReference"
 					}
 				]
@@ -198,13 +198,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "azure_sql_dates",
+						"referenceName": "azsql_dates_src",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "azuresql_dates_parquet",
+						"referenceName": "azsql_dates_lake",
 						"type": "DatasetReference"
 					}
 				]

@@ -1,5 +1,5 @@
 {
-	"name": "metrics_sql",
+	"name": "sqlsvr_metrics_src",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SqlServer3",

@@ -1,5 +1,5 @@
 {
-	"name": "Hospital_CSV",
+	"name": "hospital_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

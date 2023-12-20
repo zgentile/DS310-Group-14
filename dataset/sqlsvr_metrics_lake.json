@@ -1,5 +1,5 @@
 {
-	"name": "metrics_parquet",
+	"name": "sqlsvr_metrics_lake",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

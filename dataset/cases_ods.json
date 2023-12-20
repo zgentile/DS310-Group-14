@@ -1,5 +1,5 @@
 {
-	"name": "cases_data",
+	"name": "cases_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

@@ -5,10 +5,6 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "metrics_lake",
-						"type": "DatasetReference"
-					},
 					"name": "metrics",
 					"description": "Import data from metrics"
 				}
@@ -16,7 +12,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "deaths_data",
+						"referenceName": "deaths_ods",
 						"type": "DatasetReference"
 					},
 					"name": "selectedDeaths"
@@ -46,8 +42,6 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: true,",
-				"     format: 'parquet',",
 				"     partitionBy('hash', 1)) ~> metrics",
 				"metrics select(mapColumn(",
 				"          Date = Updated,",

@@ -1,5 +1,5 @@
 {
-	"name": "unionedmetricsdata",
+	"name": "merged_metrics",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",
@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "MergedMetrics.parquet",
 				"fileSystem": "unionedtable"
 			},
 			"compressionCodec": "snappy"

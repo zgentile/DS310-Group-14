@@ -1,5 +1,5 @@
 {
-	"name": "dates",
+	"name": "dates_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

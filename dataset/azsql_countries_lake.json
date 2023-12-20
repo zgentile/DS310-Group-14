@@ -1,5 +1,5 @@
 {
-	"name": "azuresql_country_parquet",
+	"name": "azsql_countries_lake",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSQL_blob",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "dbo.Covid19_Metrics.parquet",
+				"fileName": "dbo.Country.parquet",
 				"container": "azuresql"
 			},
 			"compressionCodec": "snappy"

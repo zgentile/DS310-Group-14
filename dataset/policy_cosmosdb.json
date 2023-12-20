@@ -1,5 +1,5 @@
 {
-	"name": "policy_covid_data",
+	"name": "policy_cosmosdb",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "covid_cosmosdb",

@@ -1,5 +1,5 @@
 {
-	"name": "azuresql_metrics_parquet",
+	"name": "azsql_metrics_lake",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

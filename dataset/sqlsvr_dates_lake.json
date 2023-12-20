@@ -1,5 +1,5 @@
 {
-	"name": "dates_parquet",
+	"name": "sqlsvr_dates_lake",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Covid19_blob_1",

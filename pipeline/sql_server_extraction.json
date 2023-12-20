@@ -42,13 +42,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "country_sql",
+						"referenceName": "sqlsvr_country_src",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "country_parquet",
+						"referenceName": "sqlsvr_country_lake",
 						"type": "DatasetReference"
 					}
 				]
@@ -93,13 +93,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "metrics_sql",
+						"referenceName": "sqlsvr_metrics_src",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "metrics_parquet",
+						"referenceName": "sqlsvr_metrics_lake",
 						"type": "DatasetReference"
 					}
 				]
@@ -144,13 +144,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "dates_sql",
+						"referenceName": "sqlsvr_dates_src",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "dates_parquet",
+						"referenceName": "sqlsvr_dates_lake",
 						"type": "DatasetReference"
 					}
 				]

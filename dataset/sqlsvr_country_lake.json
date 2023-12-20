@@ -1,5 +1,5 @@
 {
-	"name": "country_parquet",
+	"name": "sqlsvr_country_lake",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Covid19_blob_1",

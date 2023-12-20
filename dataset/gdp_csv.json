@@ -1,5 +1,5 @@
 {
-	"name": "GDP_CSV",
+	"name": "gdp_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

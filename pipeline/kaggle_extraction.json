@@ -117,13 +117,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "population_trends_csv",
+						"referenceName": "population_csv",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "population_trends_parquet",
+						"referenceName": "population_ods",
 						"type": "DatasetReference"
 					}
 				]
@@ -235,13 +235,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "GDP_CSV",
+						"referenceName": "gdp_csv",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "GDP_Parquet",
+						"referenceName": "gdp_ods",
 						"type": "DatasetReference"
 					}
 				]
@@ -354,13 +354,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "Hospital_CSV",
+						"referenceName": "hospital_csv",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "Hospital_Parquet",
+						"referenceName": "hospital_ods",
 						"type": "DatasetReference"
 					}
 				]

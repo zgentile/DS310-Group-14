@@ -1,5 +1,5 @@
 {
-	"name": "azsql_country_selected_columns",
+	"name": "countries_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

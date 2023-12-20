@@ -5,17 +5,13 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "dates_lake",
-						"type": "DatasetReference"
-					},
 					"name": "dates"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "dates",
+						"referenceName": "dates_ods",
 						"type": "DatasetReference"
 					},
 					"name": "data"
@@ -46,9 +42,7 @@
 				"          FiscalYear as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: true,",
-				"     format: 'parquet') ~> dates",
+				"     validateSchema: false) ~> dates",
 				"dates sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",

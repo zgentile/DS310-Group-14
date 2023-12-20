@@ -1,5 +1,5 @@
 {
-	"name": "dates_sql",
+	"name": "sqlsvr_dates_src",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SqlServer3",

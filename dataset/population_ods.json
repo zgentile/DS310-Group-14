@@ -1,5 +1,5 @@
 {
-	"name": "population_trends_parquet",
+	"name": "population_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

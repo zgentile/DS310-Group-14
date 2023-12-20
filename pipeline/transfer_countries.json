@@ -19,7 +19,7 @@
 					"source": {
 						"type": "ParquetSource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
@@ -102,13 +102,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "azsql_countries_temp",
+						"referenceName": "azsql_countries_lake",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "azsql_country_selected_columns",
+						"referenceName": "countries_ods",
 						"type": "DatasetReference"
 					}
 				]

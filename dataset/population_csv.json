@@ -1,5 +1,5 @@
 {
-	"name": "population_trends_csv",
+	"name": "population_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "selected_policy_data",
+						"referenceName": "policy_ods",
 						"type": "DatasetReference"
 					},
 					"name": "selectedPolicies"

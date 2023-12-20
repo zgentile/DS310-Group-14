@@ -1,5 +1,5 @@
 {
-	"name": "Hospital_Parquet",
+	"name": "hospital_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

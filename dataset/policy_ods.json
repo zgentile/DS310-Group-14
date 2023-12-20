@@ -1,5 +1,5 @@
 {
-	"name": "selected_policy_data",
+	"name": "policy_ods",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

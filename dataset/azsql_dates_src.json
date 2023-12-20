@@ -1,5 +1,5 @@
 {
-	"name": "azure_sql_dates",
+	"name": "azsql_dates_src",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "azure_sql_covid",
