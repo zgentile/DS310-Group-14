@@ -1,9 +1,10 @@
 {
-	"name": "sql_server_pipeline",
+	"name": "sql_server_extraction",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data-Country",
+				"name": "country_data",
+				"description": "Extracting countries data from sql vm and storing it in a data lake as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -53,7 +54,8 @@
 				]
 			},
 			{
-				"name": "Copy data-Metrics",
+				"name": "metrics_data",
+				"description": "Extracting metrics data from sql vm and storing it in a data lake as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -103,7 +105,8 @@
 				]
 			},
 			{
-				"name": "Copy data-Dates",
+				"name": "dates_data",
+				"description": "Extracting dates data from sql vm and storing it in a data lake as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {

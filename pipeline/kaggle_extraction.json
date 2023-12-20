@@ -1,9 +1,10 @@
 {
-	"name": "Kaggle_Data",
+	"name": "kaggle_extraction",
 	"properties": {
 		"activities": [
 			{
-				"name": "population_trends",
+				"name": "population_data",
+				"description": "Storing auxiliary population data in ods as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -128,7 +129,8 @@
 				]
 			},
 			{
-				"name": "GDP",
+				"name": "gdp_data",
+				"description": "Storing auxiliary gdp data in ods as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -245,7 +247,8 @@
 				]
 			},
 			{
-				"name": "Hospital_Data",
+				"name": "health_data",
+				"description": "Storing auxiliary Health data in ods as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {

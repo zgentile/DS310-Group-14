@@ -1,9 +1,10 @@
 {
-	"name": "dates_flow",
+	"name": "transfer_dates",
 	"properties": {
 		"activities": [
 			{
-				"name": "dates",
+				"name": "transfer_dates",
+				"description": "Transferring dates from data lake to the operational data store.",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {

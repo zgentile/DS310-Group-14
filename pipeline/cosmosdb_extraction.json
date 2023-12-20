@@ -1,9 +1,10 @@
 {
-	"name": "cosmosdb_pipeline",
+	"name": "cosmosdb_extraction",
 	"properties": {
 		"activities": [
 			{
 				"name": "policy_data",
+				"description": "Extracting policy data from cosmosdb and storing it in a data lake as a parquet file",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {

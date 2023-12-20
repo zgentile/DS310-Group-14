@@ -1,5 +1,5 @@
 {
-	"name": "metrics_union2",
+	"name": "metrics_merge",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {

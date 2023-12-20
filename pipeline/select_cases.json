@@ -3,7 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "metrics",
+				"name": "select_cases",
+				"description": "Selects columns from metrics data for new cases table. Stores new cases table in operational data store",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {

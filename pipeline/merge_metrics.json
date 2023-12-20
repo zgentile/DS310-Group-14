@@ -1,9 +1,10 @@
 {
-	"name": "merging_metrics",
+	"name": "merge_metrics",
 	"properties": {
 		"activities": [
 			{
-				"name": "Merge Metrics",
+				"name": "merge_metrics",
+				"description": "Using union function to merge metrics table from sql vm and metrics table from azure sql database. Stores new metrics table for cases, deaths, & recoveries to be derived from it.",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "metrics_union2",
+						"referenceName": "metrics_merge",
 						"type": "DataFlowReference"
 					},
 					"compute": {

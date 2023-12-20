@@ -1,9 +1,10 @@
 {
-	"name": "temp_countries",
+	"name": "transfer_countries",
 	"properties": {
 		"activities": [
 			{
-				"name": "azsql_countries_to_selected_columns",
+				"name": "transfer_countries",
+				"description": "Copying countries from data lake to operational data store",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {

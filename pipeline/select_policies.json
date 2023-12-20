@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "select_policies",
+				"description": "Selects valuable columns from policy table to keep. Stores new policy table in operational data store",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {

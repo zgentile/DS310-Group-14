@@ -3,7 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "recoveries",
+				"name": "select_recoveries",
+				"description": "Selects columns from metrics data for new recoveries table. Stores new recoveries table in operational data store",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
