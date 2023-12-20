@@ -13,213 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/metrics_union')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "metrics_data_lake",
-								"type": "DatasetReference"
-							},
-							"name": "sqlMetrics"
-						},
-						{
-							"dataset": {
-								"referenceName": "azsql_metrics_data_lake",
-								"type": "DatasetReference"
-							},
-							"name": "azsqlMetrics"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "merged_metrics",
-								"type": "DatasetReference"
-							},
-							"name": "MergedMetricsSink"
-						}
-					],
-					"transformations": [
-						{
-							"name": "MetricsUnion"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> sqlMetrics",
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: true,",
-						"     format: 'parquet') ~> azsqlMetrics",
-						"sqlMetrics, azsqlMetrics union(byName: true,",
-						"     partitionBy('hash', 1))~> MetricsUnion",
-						"MetricsUnion sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     partitionFileNames:['fullmetrics.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> MergedMetricsSink"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/metrics_union2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "azuresql_metrics_parquet",
-								"type": "DatasetReference"
-							},
-							"name": "azuresqlmetrics"
-						},
-						{
-							"dataset": {
-								"referenceName": "metrics_data_lake",
-								"type": "DatasetReference"
-							},
-							"name": "vmsqlmetrics"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "unionedmetricsdata",
-								"type": "DatasetReference"
-							},
-							"name": "unionedmetrics"
-						}
-					],
-					"transformations": [
-						{
-							"name": "union1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> azuresqlmetrics",
-						"source(output(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'parquet') ~> vmsqlmetrics",
-						"azuresqlmetrics, vmsqlmetrics union(byName: true)~> union1",
-						"union1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp,",
-						"          Country as string,",
-						"          CountryCode as string",
-						"     ),",
-						"     format: 'parquet',",
-						"     partitionFileNames:['MergedMetrics.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> unionedmetrics"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/policy_select')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -436,13 +229,14 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dates_flow')]",
+			"name": "[concat(parameters('factoryName'), '/merge_metrics')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "dates",
+						"name": "merge_metrics",
+						"description": "Using union function to merge metrics table from sql vm and metrics table from azure sql database. Stores new metrics table for cases, deaths, & recoveries to be derived from it.",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -455,97 +249,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "dates_transfer",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"dates": {},
-									"data": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/merging_countries')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Merge Countries",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "geography_union",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"sqlCountries": {},
-									"azsqlCountries": {},
-									"MergedCountriesSink": {},
-									"final": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/merging_metrics')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Merge Metrics",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "metrics_union2",
+								"referenceName": "metrics_merge",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
@@ -568,9 +272,7 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/metrics_union2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/select_cases')]",
@@ -579,7 +281,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "metrics",
+						"name": "select_cases",
+						"description": "Selects columns from metrics data for new cases table. Stores new cases table in operational data store",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -623,7 +326,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "deaths",
+						"name": "select_deaths",
+						"description": "Selects columns from metrics data for new deaths table. Stores new deaths table in operational data store",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -668,6 +372,7 @@
 				"activities": [
 					{
 						"name": "select_policies",
+						"description": "Selects valuable columns from policy table to keep. Stores new policy table in operational data store",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -713,7 +418,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "recoveries",
+						"name": "select_recoveries",
+						"description": "Selects columns from metrics data for new recoveries table. Stores new recoveries table in operational data store",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -753,13 +459,14 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/sql_server_pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/sql_server_extraction')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data-Country",
+						"name": "country_data",
+						"description": "Extracting countries data from sql vm and storing it in a data lake as a parquet file",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -811,7 +518,8 @@
 						]
 					},
 					{
-						"name": "Copy data-Metrics",
+						"name": "metrics_data",
+						"description": "Extracting metrics data from sql vm and storing it in a data lake as a parquet file",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -863,7 +571,8 @@
 						]
 					},
 					{
-						"name": "Copy data-Dates",
+						"name": "dates_data",
+						"description": "Extracting dates data from sql vm and storing it in a data lake as a parquet file",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -920,6 +629,51 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2023-11-03T23:24:03Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/transfer_dates')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "transfer_dates",
+						"description": "Transferring dates from data lake to the operational data store.",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dates_transfer",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"dates": {},
+									"data": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
 			},
 			"dependsOn": []
 		}
